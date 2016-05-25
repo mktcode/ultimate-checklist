@@ -1,0 +1,10 @@
+{
+    "name": "ultimate-checklist",
+    "authors": [
+        "mkt <markus.kottlaender@crea.de>"
+    ],
+    "license": "MIT",
+    "dependencies": {
+        "uikit": "~2.26.3"
+    }
+}

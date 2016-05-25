@@ -1,0 +1,39 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h1>Checklist list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for checklist in checklists %}
+            <tr>
+                <td><a href="{{ path('checklist_show', { 'id': checklist.id }) }}">{{ checklist.id }}</a></td>
+                <td>{{ checklist.name }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('checklist_show', { 'id': checklist.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('checklist_edit', { 'id': checklist.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('checklist_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}
