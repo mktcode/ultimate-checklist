@@ -6,12 +6,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Checklist
+ * TaskCategory
  *
- * @ORM\Table(name="checklist")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ChecklistRepository")
+ * @ORM\Table(name="task_category")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\TaskCategoryRepository")
  */
-class Checklist
+class TaskCategory
 {
     /**
      * @var int
@@ -32,7 +32,7 @@ class Checklist
     /**
      * @var Task[]
      *
-     * @ORM\OneToMany(targetEntity="Task", mappedBy="checklist")
+     * @ORM\OneToMany(targetEntity="Task", mappedBy="taskCategory")
      */
     private $tasks;
 
@@ -57,7 +57,7 @@ class Checklist
      *
      * @param string $name
      *
-     * @return Checklist
+     * @return TaskCategory
      */
     public function setName($name)
     {
@@ -81,7 +81,7 @@ class Checklist
      *
      * @param Task $task
      *
-     * @return Checklist
+     * @return TaskCategory
      */
     public function addTask(Task $task)
     {

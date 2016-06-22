@@ -7,7 +7,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Checklist;
-use AppBundle\Form\ChecklistType;
 
 /**
  * Checklist controller.
@@ -28,9 +27,9 @@ class ChecklistController extends Controller
 
         $checklists = $em->getRepository('AppBundle:Checklist')->findAll();
 
-        return $this->render('checklist/index.html.twig', array(
+        return $this->render('checklist/index.html.twig', [
             'checklists' => $checklists,
-        ));
+        ]);
     }
 
     /**
@@ -38,6 +37,8 @@ class ChecklistController extends Controller
      *
      * @Route("/new", name="checklist_new")
      * @Method({"GET", "POST"})
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function newAction(Request $request)
     {
@@ -50,13 +51,13 @@ class ChecklistController extends Controller
             $em->persist($checklist);
             $em->flush();
 
-            return $this->redirectToRoute('checklist_show', array('id' => $checklist->getId()));
+            return $this->redirectToRoute('checklist_show', ['id' => $checklist->getId()]);
         }
 
-        return $this->render('checklist/new.html.twig', array(
+        return $this->render('checklist/new.html.twig', [
             'checklist' => $checklist,
             'form' => $form->createView(),
-        ));
+        ]);
     }
 
     /**
@@ -64,15 +65,17 @@ class ChecklistController extends Controller
      *
      * @Route("/{id}", name="checklist_show")
      * @Method("GET")
+     * @param Checklist $checklist
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showAction(Checklist $checklist)
     {
         $deleteForm = $this->createDeleteForm($checklist);
 
-        return $this->render('checklist/show.html.twig', array(
+        return $this->render('checklist/show.html.twig', [
             'checklist' => $checklist,
             'delete_form' => $deleteForm->createView(),
-        ));
+        ]);
     }
 
     /**
@@ -80,6 +83,9 @@ class ChecklistController extends Controller
      *
      * @Route("/{id}/edit", name="checklist_edit")
      * @Method({"GET", "POST"})
+     * @param Request $request
+     * @param Checklist $checklist
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function editAction(Request $request, Checklist $checklist)
     {
@@ -92,14 +98,14 @@ class ChecklistController extends Controller
             $em->persist($checklist);
             $em->flush();
 
-            return $this->redirectToRoute('checklist_edit', array('id' => $checklist->getId()));
+            return $this->redirectToRoute('checklist_edit', ['id' => $checklist->getId()]);
         }
 
-        return $this->render('checklist/edit.html.twig', array(
+        return $this->render('checklist/edit.html.twig', [
             'checklist' => $checklist,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        ));
+        ]);
     }
 
     /**
@@ -107,6 +113,9 @@ class ChecklistController extends Controller
      *
      * @Route("/{id}", name="checklist_delete")
      * @Method("DELETE")
+     * @param Request $request
+     * @param Checklist $checklist
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Request $request, Checklist $checklist)
     {
@@ -132,7 +141,7 @@ class ChecklistController extends Controller
     private function createDeleteForm(Checklist $checklist)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('checklist_delete', array('id' => $checklist->getId())))
+            ->setAction($this->generateUrl('checklist_delete', ['id' => $checklist->getId()]))
             ->setMethod('DELETE')
             ->getForm()
         ;

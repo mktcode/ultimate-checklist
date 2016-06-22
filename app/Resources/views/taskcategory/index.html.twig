@@ -1,26 +1,28 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <h1>Checklisten</h1>
+    <h1>Kategorien</h1>
 
     <table class="uk-table uk-table-striped">
         <thead>
             <tr>
+                <th>Id</th>
                 <th>Name</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for checklist in checklists %}
+        {% for taskCategory in taskCategories %}
             <tr>
-                <td>{{ checklist.name }}</td>
+                <td><a href="{{ path('taskcategory_show', { 'id': taskCategory.id }) }}">{{ taskCategory.id }}</a></td>
+                <td>{{ taskCategory.name }}</td>
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('checklist_show', { 'id': checklist.id }) }}">show</a>
+                            <a href="{{ path('taskcategory_show', { 'id': taskCategory.id }) }}">show</a>
                         </li>
                         <li>
-                            <a href="{{ path('checklist_edit', { 'id': checklist.id }) }}">edit</a>
+                            <a href="{{ path('taskcategory_edit', { 'id': taskCategory.id }) }}">edit</a>
                         </li>
                     </ul>
                 </td>
@@ -31,7 +33,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('checklist_new') }}">Create a new entry</a>
+            <a href="{{ path('taskcategory_new') }}">Create a new entry</a>
         </li>
     </ul>
 {% endblock %}
