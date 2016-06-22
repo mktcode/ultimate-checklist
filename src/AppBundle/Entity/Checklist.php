@@ -36,10 +36,18 @@ class Checklist
      */
     private $tasks;
 
+    /**
+     * @var CheckInstance[]
+     *
+     * @ORM\OneToMany(targetEntity="CheckInstance", mappedBy="checklist")
+     */
+    private $checkInstances;
+
 
     public function __construct()
     {
         $this->tasks = new ArrayCollection();
+        $this->checkInstances = new ArrayCollection();
     }
 
     /**
@@ -113,5 +121,39 @@ class Checklist
     public function __toString()
     {
         return $this->getName();
+    }
+
+    /**
+     * Add checkInstance
+     *
+     * @param CheckInstance $checkInstance
+     *
+     * @return Checklist
+     */
+    public function addCheckInstance(CheckInstance $checkInstance)
+    {
+        $this->checkInstances[] = $checkInstance;
+
+        return $this;
+    }
+
+    /**
+     * Remove checkInstance
+     *
+     * @param CheckInstance $checkInstance
+     */
+    public function removeCheckInstance(CheckInstance $checkInstance)
+    {
+        $this->checkInstances->removeElement($checkInstance);
+    }
+
+    /**
+     * Get checkInstances
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCheckInstances()
+    {
+        return $this->checkInstances;
     }
 }

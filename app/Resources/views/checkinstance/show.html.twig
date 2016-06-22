@@ -1,0 +1,36 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h1>Checks</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ checkInstance.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ checkInstance.title }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{% if checkInstance.date %}{{ checkInstance.date|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('checkinstance_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('checkinstance_edit', { 'id': checkInstance.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

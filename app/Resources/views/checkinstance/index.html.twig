@@ -1,0 +1,41 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h1>CheckInstance list</h1>
+
+    <table class="uk-table uk-table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for checkInstance in checkInstances %}
+            <tr>
+                <td><a href="{{ path('checkinstance_show', { 'id': checkInstance.id }) }}">{{ checkInstance.id }}</a></td>
+                <td>{{ checkInstance.title }}</td>
+                <td>{% if checkInstance.date %}{{ checkInstance.date|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('checkinstance_show', { 'id': checkInstance.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('checkinstance_edit', { 'id': checkInstance.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('checkinstance_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}
