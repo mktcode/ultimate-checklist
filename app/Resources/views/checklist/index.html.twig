@@ -1,37 +1,35 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <h1>Checklisten</h1>
+    <h1>
+        Checklisten
+        <a href="{{ path('checklist_new') }}" class="uk-button uk-button-success uk-float-right">
+            <i class="uk-icon-plus"></i> neu
+        </a>
+    </h1>
 
     <table class="uk-table uk-table-striped">
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Actions</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
         {% for checklist in checklists %}
             <tr>
                 <td>{{ checklist.name }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('checklist_show', { 'id': checklist.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('checklist_edit', { 'id': checklist.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                <td class="uk-text-right">
+                    <a href="{{ path('checklist_edit', { 'id': checklist.id }) }}"
+                            class="uk-button uk-button-primary">
+                        <i class="uk-icon-edit"></i>
+                    </a>
+                    <div class="uk-float-right">
+                        {{ form(deleteButtons[checklist.id]) }}
+                    </div>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('checklist_new') }}">Create a new entry</a>
-        </li>
-    </ul>
 {% endblock %}

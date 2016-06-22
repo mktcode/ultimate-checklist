@@ -1,0 +1,64 @@
+{% extends 'form_div_layout.html.twig' %}
+
+{%- block form_start -%}
+    {% set attr = attr|merge({'class': 'uk-form'}) %}
+    {{ parent() }}
+{%- endblock form_start -%}
+
+{%- block form_row -%}
+    <div class="uk-form-row">
+        {{- form_label(form) -}}
+        {{- form_errors(form) -}}
+        {{- form_widget(form) -}}
+    </div>
+{%- endblock form_row -%}
+
+{%- block form_label -%}
+    {% set label_attr = label_attr|merge({'class': 'uk-form-label'}) %}
+    {{ parent() }}
+{%- endblock form_label -%}
+
+{%- block form_widget_simple -%}
+    <div class="uk-form-controls">
+        {%- set type = type|default('text') -%}
+        <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+    </div>
+{%- endblock form_widget_simple -%}
+
+{%- block widget_attributes -%}
+    {% if type not in ['hidden', 'checkbox', 'radio'] %}
+        {% set attr = attr|merge({'class': 'uk-width-1-1'}) %}
+    {% endif %}
+    {{ parent() }}
+{%- endblock widget_attributes -%}
+
+{%- block button_attributes -%}
+    {% if name == 'save' %}
+        {% set attr = attr|merge({'class': 'uk-button uk-button-success'}) %}
+    {% elseif name == 'delete' %}
+        {% set attr = attr|merge({'class': 'uk-button uk-button-danger'}) %}
+    {% else %}
+        {% set attr = attr|merge({'class': 'uk-button'}) %}
+    {% endif %}
+    {{ parent() }}
+{%- endblock button_attributes -%}
+
+{%- block button_row -%}
+    <div class="uk-form-row">
+        {{- form_widget(form) -}}
+    </div>
+{%- endblock button_row -%}
+
+{%- block button_widget -%}
+    {%- if label is empty -%}
+        {%- if label_format is not empty -%}
+            {% set label = label_format|replace({
+            '%name%': name,
+            '%id%': id,
+            }) %}
+        {%- else -%}
+            {% set label = name|humanize %}
+        {%- endif -%}
+    {%- endif -%}
+    <button type="{{ type|default('button') }}" {{ block('button_attributes') }}>{{ translation_domain is same as(false) ? label|raw : label|trans({}, translation_domain)|raw }}</button>
+{%- endblock button_widget -%}

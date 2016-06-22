@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -27,8 +28,15 @@ class ChecklistController extends Controller
 
         $checklists = $em->getRepository('AppBundle:Checklist')->findAll();
 
+        $deleteButtons = [];
+        /** @var Checklist $checklist */
+        foreach ($checklists as $checklist) {
+            $deleteButtons[$checklist->getId()] = $this->createDeleteForm($checklist)->createView();
+        }
+
         return $this->render('checklist/index.html.twig', [
             'checklists' => $checklists,
+            'deleteButtons' => $deleteButtons
         ]);
     }
 
@@ -141,6 +149,7 @@ class ChecklistController extends Controller
     private function createDeleteForm(Checklist $checklist)
     {
         return $this->createFormBuilder()
+            ->add('delete', SubmitType::class, ['label' => '<i class="uk-icon-trash"></i>'])
             ->setAction($this->generateUrl('checklist_delete', ['id' => $checklist->getId()]))
             ->setMethod('DELETE')
             ->getForm()

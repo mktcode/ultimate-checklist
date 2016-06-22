@@ -45,7 +45,7 @@ class Task
     /**
      * @var Checklist
      *
-     * @ORM\ManyToOne(targetEntity="Checklist")
+     * @ORM\ManyToOne(targetEntity="Checklist", inversedBy="tasks")
      */
     private $checklist;
 
