@@ -9,7 +9,9 @@
     <div class="uk-form-row">
         {{- form_label(form) -}}
         {{- form_errors(form) -}}
-        {{- form_widget(form) -}}
+        <div class="uk-form-controls">
+            {{- form_widget(form) -}}
+        </div>
     </div>
 {%- endblock form_row -%}
 
@@ -19,18 +21,22 @@
 {%- endblock form_label -%}
 
 {%- block form_widget_simple -%}
-    <div class="uk-form-controls">
-        {%- set type = type|default('text') -%}
-        <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
-    </div>
-{%- endblock form_widget_simple -%}
-
-{%- block widget_attributes -%}
-    {% if type not in ['hidden', 'checkbox', 'radio'] %}
+    {%- set type = type|default('text') -%}
+    {% if type is defined and type not in ['hidden', 'checkbox', 'radio'] %}
         {% set attr = attr|merge({'class': 'uk-width-1-1'}) %}
     {% endif %}
+    <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+{%- endblock form_widget_simple -%}
+
+{%- block textarea_widget -%}
+    {% set attr = attr|merge({'class': 'uk-width-1-1'}) %}
+    <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
+{%- endblock textarea_widget -%}
+
+{%- block choice_widget_collapsed -%}
+    {% set attr = attr|merge({'class': 'uk-width-1-1'}) %}
     {{ parent() }}
-{%- endblock widget_attributes -%}
+{%- endblock choice_widget_collapsed -%}
 
 {%- block button_attributes -%}
     {% if name == 'save' %}
