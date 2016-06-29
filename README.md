@@ -11,6 +11,7 @@ Brainstorm
 - define check order
 - make checks interdependent
 - make checks optional
+- checks with parent/child relation
 - define decision based checks
 - attach comments/media input
 - print checklist
