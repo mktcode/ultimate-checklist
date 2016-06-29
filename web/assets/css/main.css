@@ -72,3 +72,9 @@ body {
 .uk-nav-dropdown .uk-active a {
     color: #fff !important;
 }
+
+.uk-button small {
+    display: block;
+    line-height: 18px;
+    margin-bottom: 15px;
+}
