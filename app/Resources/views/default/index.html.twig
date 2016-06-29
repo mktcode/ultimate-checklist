@@ -5,4 +5,26 @@
         <i class="uk-icon-check"></i>
         {{ 'Start new check'|trans }}
     </a>
+
+    <h2>Deine letzten Checks</h2>
+    <table class="uk-table uk-table-striped">
+        <tr>
+            <th>Name</th>
+            <th>Checkliste</th>
+            <th>Datum</th>
+            <th></th>
+        </tr>
+        {% for checkInstance in app.user.checkInstances %}
+            <tr>
+                <td>{{ checkInstance.title }}</td>
+                <td>{{ checkInstance.checklist.name }}</td>
+                <td>{{ checkInstance.date|date('d.m.Y - H:i') }} Uhr</td>
+                <td class="uk-text-right">
+                    <a href="{{ path('check_task', {'checkInstance': checkInstance.id}) }}" class="uk-button uk-button-primary">
+                        <i class="uk-icon-edit"></i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
 {% endblock %}
