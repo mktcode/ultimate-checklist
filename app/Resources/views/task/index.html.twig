@@ -11,6 +11,7 @@
     <table class="uk-table uk-table-striped">
         <thead>
             <tr>
+                <th>#</th>
                 <th>Name</th>
                 <th>Beschreibung</th>
                 <th></th>
@@ -19,6 +20,7 @@
         <tbody>
         {% for task in tasks %}
             <tr>
+                <td>{{ task.orderNum }}</td>
                 <td>{{ task.name }}</td>
                 <td>{{ task.description }}</td>
                 <td class="uk-text-right">

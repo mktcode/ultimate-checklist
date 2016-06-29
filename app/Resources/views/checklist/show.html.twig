@@ -20,12 +20,14 @@
     </h2>
     <table class="uk-table uk-table-striped">
         <tr>
+            <th>#</th>
             <th>Name</th>
             <th>Beschreibung</th>
             <th>Kategorie</th>
         </tr>
         {% for task in checklist.tasks %}
             <tr>
+                <td>{{ task.orderNum }}</td>
                 <td>{{ task.name }}</td>
                 <td>{{ task.description }}</td>
                 <td>{{ task.taskCategory }}</td>
