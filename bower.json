@@ -5,6 +5,7 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "jquery": "~2.2",
     "uikit": "~2.26.3",
     "smoothstate": "^0.7.2"
   }
