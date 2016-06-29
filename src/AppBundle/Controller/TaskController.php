@@ -45,7 +45,9 @@ class TaskController extends Controller
     public function newAction(Request $request, Checklist $checklist = null)
     {
         $task = new Task();
-        $task->setChecklist($checklist);
+        if ($checklist) {
+            $task->setChecklist($checklist);
+        }
         $form = $this->createForm('AppBundle\Form\TaskType', $task, ['checklist' => $checklist]);
         $form->handleRequest($request);
 
