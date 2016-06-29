@@ -2,6 +2,17 @@ body {
     overflow-x: hidden;
 }
 
+#logout-button {
+    transition: all 0.3s ease;
+}
+
+#logout-button:hover,
+#logout-button:focus,
+#logout-button:active {
+    background: #D85030;
+    color: #fff !important;
+}
+
 #content {
     padding: 25px;
 }
@@ -15,4 +26,49 @@ body {
 .check-task:focus {
     text-decoration: none;
     outline: none;
+}
+
+@media screen {
+    .visible-print {
+        display: none;
+    }
+}
+
+@media print {
+    .hidden-print {
+        display: none;
+    }
+}
+
+.uk-animation-fade {
+    -webkit-animation-duration: 0.5s;
+    animation-duration: 0.5s;
+}
+
+.copy-link-input {
+    margin-top: -10px;
+}
+
+.copy-link-input input {
+    margin-bottom: 25px;
+    width: 400px;
+    border: none;
+    color: #ccc;
+}
+
+.uk-dropdown {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.uk-nav-dropdown li {
+    border-bottom: solid 1px #ddd;
+}
+
+.uk-nav-dropdown .uk-active {
+    background: #00A8E6;
+}
+
+.uk-nav-dropdown .uk-active a {
+    color: #fff !important;
 }

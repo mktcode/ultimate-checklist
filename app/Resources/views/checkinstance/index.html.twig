@@ -1,41 +1,37 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <h1>CheckInstance list</h1>
+    <h1>
+        Durchgeführte Checks
+        <a href="{{ path('check') }}" class="uk-button uk-button-success uk-float-right">
+            <i class="uk-icon-plus"></i>
+            {{ 'Start new check'|trans }}
+        </a>
+    </h1>
 
     <table class="uk-table uk-table-striped">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Date</th>
-                <th>Actions</th>
+                <th>Name</th>
+                <th>Datum</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
         {% for checkInstance in checkInstances %}
             <tr>
-                <td><a href="{{ path('checkinstance_show', { 'id': checkInstance.id }) }}">{{ checkInstance.id }}</a></td>
                 <td>{{ checkInstance.title }}</td>
-                <td>{% if checkInstance.date %}{{ checkInstance.date|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('checkinstance_show', { 'id': checkInstance.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('checkinstance_edit', { 'id': checkInstance.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                <td>{{ checkInstance.date|date('Y-m-d H:i:s') }}</td>
+                <td class="uk-text-right">
+                    <a href="{{ path('checkinstance_show', { 'id': checkInstance.id }) }}" class="uk-button uk-button-primary">
+                        <i class="uk-icon-eye"></i>
+                    </a>
+                    <a href="{{ path('checkinstance_edit', { 'id': checkInstance.id }) }}" class="uk-button uk-button-primary">
+                        <i class="uk-icon-edit"></i>
+                    </a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('checkinstance_new') }}">Create a new entry</a>
-        </li>
-    </ul>
 {% endblock %}

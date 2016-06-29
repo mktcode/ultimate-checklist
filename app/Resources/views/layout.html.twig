@@ -5,21 +5,59 @@
 {% endblock %}
 
 {% block body %}
-    <nav class="uk-navbar">
-        <a href="{{ path('homepage') }}" class="uk-navbar-brand">Ultimate Checklist</a>
+    <nav class="uk-navbar hidden-print">
+        <ul class="uk-navbar-nav">
+            <li>
+                <a href="{{ path('homepage') }}" data-uk-tooltip title="Dashboard">
+                    <i class="uk-icon-dashboard"></i>
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('user_index') }}" data-uk-tooltip title="Benutzer">
+                    <i class="uk-icon-users"></i>
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('checkinstance_index') }}" data-uk-tooltip title="Durchgeführte Checks">
+                    <i class="uk-icon-history"></i>
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('checklist_index') }}" data-uk-tooltip title="Checklisten">
+                    <i class="uk-icon-list"></i>
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('task_index') }}" data-uk-tooltip title="Aufgaben">
+                    <i class="uk-icon-check-square-o"></i>
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('taskcategory_index') }}" data-uk-tooltip title="Kategorien">
+                    <i class="uk-icon-folder-open"></i>
+                </a>
+            </li>
+        </ul>
         <ul class="uk-navbar-nav uk-navbar-flip">
-            <li><a href="{{ path('user_index') }}"><i class="uk-icon-users"></i></a></li>
-            <li><a href="{{ path('checklist_index') }}"><i class="uk-icon-list"></i></a></li>
-            {#<li><a href="{{ path('checkinstance_index') }}"><i class="uk-icon-check-circle-o"></i></a></li>#}
-            <li><a href="{{ path('task_index') }}"><i class="uk-icon-check-square-o"></i></a></li>
-            <li><a href="{{ path('taskcategory_index') }}"><i class="uk-icon-folder-open"></i></a></li>
-            <li><a href="{{ path('fos_user_security_logout') }}" class="uk-text-danger"><i class="uk-icon-power-off"></i></a></li>
+            <li>
+                <a href="{{ path('fos_user_security_logout') }}"
+                   id="logout-button"
+                   class="uk-text-danger"
+                   data-uk-tooltip title="Abmelden">
+                    <i class="uk-icon-power-off"></i>
+                </a>
+            </li>
         </ul>
         <div class="uk-navbar-content uk-navbar-flip">
             Hi {{ app.user }}!
         </div>
+        <div class="uk-navbar-content uk-navbar-center">
+            Ultimate Checklist
+        </div>
     </nav>
-    <div id="content">
-        {% block content %}{% endblock %}
+    <div id="content-wrapper">
+        <div id="content">
+            {% block content %}{% endblock %}
+        </div>
     </div>
 {% endblock %}

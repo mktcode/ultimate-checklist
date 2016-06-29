@@ -1,36 +1,64 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <h1>Checks</h1>
+    <div class="uk-clearfix hidden-print">
+        <a href="javascript:window.print();" class="uk-button uk-button-primary">
+            <i class="uk-icon-print"></i> Drucken
+        </a>
+        <a href="{{ path('checkinstance_index') }}" class="uk-button uk-button-primary uk-float-right no-smoothState">
+            <i class="uk-icon-history"></i> Liste
+        </a>
+    </div>
 
-    <table>
+    <h1 class="uk-text-center visible-print">
+        Checkliste
+    </h1>
+
+    <h1 style="padding-bottom: 20px;">
+        {{ checkInstance.title }}
+        <small class="uk-text-muted uk-float-right">{{ checkInstance.checklist.name }}</small>
+    </h1>
+
+    <b>Ersteller:</b> {{ checkInstance.user.username }}<br>
+    <b>Datum:</b> {{ checkInstance.date|date('d.m.Y H:i') }} Uhr
+
+    <table class="uk-table uk-table-striped">
+        <thead>
+        <tr>
+            <th>Aufgabe</th>
+            <th>Beschreibung</th>
+            <th>Erledigt</th>
+            <th style="width: 50px;">Wann</th>
+            <th>Von</th>
+            <th class="hidden-print"></th>
+        </tr>
+        </thead>
         <tbody>
+        {% for task in checkInstance.checklist.tasks %}
             <tr>
-                <th>Id</th>
-                <td>{{ checkInstance.id }}</td>
+                <td>
+                    {{ task.name }}
+                    {% if task.taskCategory %}
+                        <br><small class="uk-text-muted">{{ task.taskCategory.name }}</small>
+                    {% endif %}
+                </td>
+                <td><i>{{ task.description }}</i></td>
+                <td><i class="uk-text-success uk-icon-large uk-icon-{{ task|isChecked(checkInstance) ? 'check-' : '' }}square-o"></i></td>
+                <td>{{ task|checkedDate(checkInstance) }}</td>
+                <td>{{ task|checkedBy(checkInstance) }}</td>
+                <td class="uk-text-right hidden-print">
+                    <a href="{{ path('check_task', {'checkInstance': checkInstance.id, 'task': task.id}) }}" class="uk-button uk-button-primary">
+                        <i class="uk-icon-edit"></i>
+                    </a>
+                </td>
             </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ checkInstance.title }}</td>
-            </tr>
-            <tr>
-                <th>Date</th>
-                <td>{% if checkInstance.date %}{{ checkInstance.date|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
+        {% endfor %}
         </tbody>
     </table>
+{% endblock %}
 
-    <ul>
-        <li>
-            <a href="{{ path('checkinstance_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('checkinstance_edit', { 'id': checkInstance.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('assets/vendor/smoothstate/jquery.smoothState.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/transitions.js') }}"></script>
 {% endblock %}

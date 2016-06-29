@@ -35,7 +35,7 @@
 {%- endblock textarea_widget -%}
 
 {%- block choice_widget_collapsed -%}
-    {% set attr = attr|merge({'class': 'uk-width-1-1'}) %}
+    {% set attr = attr|merge({'class': attr.class|default('') ~ ' uk-width-1-1'}) %}
     {{ parent() }}
 {%- endblock choice_widget_collapsed -%}
 
@@ -69,3 +69,18 @@
     {%- endif -%}
     <button type="{{ type|default('button') }}" {{ block('button_attributes') }}>{{ translation_domain is same as(false) ? label|raw : label|trans({}, translation_domain)|raw }}</button>
 {%- endblock button_widget -%}
+
+{%- block date_widget -%}
+    {%- if widget == 'single_text' -%}
+        {% set attr = attr|merge({'data-uk-datepicker': "{format:'DD.MM.YYYY', i18n: {months:['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'], weekdays:['So','Mo','Di','Mi','Do','Fr','Sa']}}"}) %}
+        {{ block('form_widget_simple') }}
+    {%- else -%}
+        <div {{ block('widget_container_attributes') }}>
+            {{- date_pattern|replace({
+                '{{ year }}':  form_widget(form.year),
+                '{{ month }}': form_widget(form.month),
+                '{{ day }}':   form_widget(form.day),
+            })|raw -}}
+        </div>
+    {%- endif -%}
+{%- endblock date_widget -%}

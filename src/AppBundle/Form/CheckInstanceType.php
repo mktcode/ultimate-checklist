@@ -4,6 +4,7 @@ namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,9 +18,14 @@ class CheckInstanceType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('date', DateTimeType::class)
+            ->add('date', DateTimeType::class, [
+                'date_format' => 'd.M.y',
+                'date_widget' => 'single_text',
+                'time_widget' => 'single_text',
+            ])
             ->add('user')
             ->add('checklist')
+            ->add('save', SubmitType::class, ['label' => '<i class="uk-icon-save"></i> Speichern'])
         ;
     }
     

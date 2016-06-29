@@ -12,7 +12,7 @@ use AppBundle\Form\CheckInstanceType;
 /**
  * CheckInstance controller.
  *
- * @Route("/checkinstance")
+ * @Route("/checks")
  */
 class CheckInstanceController extends Controller
 {
@@ -91,6 +91,8 @@ class CheckInstanceController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($checkInstance);
             $em->flush();
+
+            $this->addFlash('success', 'Änderungen wurden gespeichert.');
 
             return $this->redirectToRoute('checkinstance_edit', array('id' => $checkInstance->getId()));
         }

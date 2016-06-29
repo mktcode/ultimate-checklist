@@ -6,6 +6,27 @@
         <small class="uk-text-muted uk-float-right">{{ checkInstance.checklist.name }}</small>
     </h1>
 
+    <div class="uk-button-dropdown uk-float-right" data-uk-dropdown="{mode:'click'}">
+        <button class="uk-button uk-button-primary">Alle Aufgaben <i class="uk-icon-caret-down"></i></button>
+        <div class="uk-dropdown">
+            <ul class="uk-nav uk-nav-dropdown">
+                {% for t in checkInstance.checklist.tasks %}
+                    <li{% if t.id == task.id %} class="uk-active"{% endif %}>
+                        <a href="{{ path('check_task', {'checkInstance': checkInstance.id, 'task': t.id}) }}"
+                           data-animation="nextTask">
+                            {{ t.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="uk-text-muted copy-link-input">
+        <i class="uk-icon-external-link"></i>
+        <input type="text" value="{{ url('check_task', {'checkInstance': checkInstance.id}) }}" onclick="this.select();"/>
+    </div>
+
     <div id="task">
         <h2>
             <span style="width: 40px; display: inline-block;">
@@ -29,19 +50,20 @@
         {% if prevTask %}
             <a href="{{ path('check_task', {'checkInstance': checkInstance.id, 'task': prevTask.id}) }}"
                class="uk-button uk-button-primary"
-               data-animation="prev">
+               data-animation="prevTask">
                 <i class="uk-icon-angle-left"></i> zurück
             </a>
         {% endif %}
 
         {% if nextTask %}
             <a href="{{ path('check_task', {'checkInstance': checkInstance.id, 'task': nextTask.id}) }}"
-               class="uk-button uk-button-primary"
-               data-animation="next">
+               class="uk-button uk-button-primary uk-float-right"
+               data-animation="nextTask">
                 weiter <i class="uk-icon-angle-right"></i>
             </a>
         {% else %}
-            <a href="" class="uk-button uk-button-primary">
+            <a href="{{ path('checkinstance_show', {'id': checkInstance.id}) }}"
+               class="uk-button uk-button-success uk-float-right">
                 <i class="uk-icon-check"></i> Fertig!
             </a>
         {% endif %}
@@ -51,7 +73,7 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript" src="{{ asset('assets/vendor/smoothstate/jquery.smoothState.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/js/task-transitions.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/transitions.js') }}"></script>
     <script type="text/javascript">
         $(function () {
             $(document).on('click', '.check-task', function (e) {
