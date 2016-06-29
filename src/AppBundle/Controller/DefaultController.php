@@ -6,14 +6,10 @@ use AppBundle\Entity\CheckInstance;
 use AppBundle\Entity\CheckInstanceCheck;
 use AppBundle\Entity\Checklist;
 use AppBundle\Entity\Task;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
 
 class DefaultController extends Controller
 {
