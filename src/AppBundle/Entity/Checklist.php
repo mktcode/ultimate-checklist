@@ -33,6 +33,7 @@ class Checklist
      * @var Task[]
      *
      * @ORM\OneToMany(targetEntity="Task", mappedBy="checklist")
+     * @ORM\OrderBy(value={"orderNum" = "ASC"})
      */
     private $tasks;
 

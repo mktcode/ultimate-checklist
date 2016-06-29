@@ -26,11 +26,19 @@ class User extends BaseUser
      */
     private $checkInstances;
 
+    /**
+     * @var CheckInstanceCheck[]
+     *
+     * @ORM\OneToMany(targetEntity="CheckInstanceCheck", mappedBy="user")
+     */
+    private $checkInstanceChecks;
+
     public function __construct()
     {
         parent::__construct();
 
         $this->checkInstances = new ArrayCollection();
+        $this->checkInstanceChecks = new ArrayCollection();
     }
 
     /**
@@ -65,5 +73,39 @@ class User extends BaseUser
     public function getCheckInstances()
     {
         return $this->checkInstances;
+    }
+
+    /**
+     * Add checkInstanceCheck
+     *
+     * @param CheckInstanceCheck $checkInstanceCheck
+     *
+     * @return User
+     */
+    public function addCheckInstanceCheck(CheckInstanceCheck $checkInstanceCheck)
+    {
+        $this->checkInstanceChecks[] = $checkInstanceCheck;
+
+        return $this;
+    }
+
+    /**
+     * Remove checkInstanceCheck
+     *
+     * @param CheckInstanceCheck $checkInstanceCheck
+     */
+    public function removeCheckInstanceCheck(CheckInstanceCheck $checkInstanceCheck)
+    {
+        $this->checkInstanceChecks->removeElement($checkInstanceCheck);
+    }
+
+    /**
+     * Get checkInstanceChecks
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCheckInstanceChecks()
+    {
+        return $this->checkInstanceChecks;
     }
 }

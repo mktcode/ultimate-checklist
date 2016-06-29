@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,13 +37,6 @@ class Task
     private $description;
 
     /**
-     * @var bool
-     *
-     * @ORM\Column(name="checked", type="boolean", nullable=true)
-     */
-    private $checked;
-
-    /**
      * @var Checklist
      *
      * @ORM\ManyToOne(targetEntity="Checklist", inversedBy="tasks")
@@ -52,9 +46,23 @@ class Task
     /**
      * @var TaskCategory
      *
-     * @ORM\ManyToOne(targetEntity="TaskCategory")
+     * @ORM\ManyToOne(targetEntity="TaskCategory", inversedBy="tasks")
      */
     private $taskCategory;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="order_num", type="integer")
+     */
+    private $orderNum;
+
+    /**
+     * @var CheckInstanceCheck[]
+     *
+     * @ORM\OneToMany(targetEntity="CheckInstanceCheck", mappedBy="task")
+     */
+    private $checkInstanceChecks;
 
 
     /**
@@ -116,30 +124,6 @@ class Task
     }
 
     /**
-     * Set checked
-     *
-     * @param boolean $checked
-     *
-     * @return Task
-     */
-    public function setChecked($checked)
-    {
-        $this->checked = $checked;
-
-        return $this;
-    }
-
-    /**
-     * Get checked
-     *
-     * @return bool
-     */
-    public function isChecked()
-    {
-        return $this->checked;
-    }
-
-    /**
      * @return Checklist
      */
     public function getChecklist()
@@ -176,5 +160,70 @@ class Task
 
         return $this;
     }
-}
 
+    /**
+     * Set orderNum
+     *
+     * @param integer $orderNum
+     *
+     * @return Task
+     */
+    public function setOrderNum($orderNum)
+    {
+        $this->orderNum = $orderNum;
+
+        return $this;
+    }
+
+    /**
+     * Get orderNum
+     *
+     * @return integer
+     */
+    public function getOrderNum()
+    {
+        return $this->orderNum;
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->checkInstanceChecks = new ArrayCollection();
+    }
+
+    /**
+     * Add checkInstanceCheck
+     *
+     * @param CheckInstanceCheck $checkInstanceCheck
+     *
+     * @return Task
+     */
+    public function addCheckInstanceCheck(CheckInstanceCheck $checkInstanceCheck)
+    {
+        $this->checkInstanceChecks[] = $checkInstanceCheck;
+
+        return $this;
+    }
+
+    /**
+     * Remove checkInstanceCheck
+     *
+     * @param CheckInstanceCheck $checkInstanceCheck
+     */
+    public function removeCheckInstanceCheck(CheckInstanceCheck $checkInstanceCheck)
+    {
+        $this->checkInstanceChecks->removeElement($checkInstanceCheck);
+    }
+
+    /**
+     * Get checkInstanceChecks
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCheckInstanceChecks()
+    {
+        return $this->checkInstanceChecks;
+    }
+}

@@ -20,11 +20,15 @@
             <tr>
                 <td>{{ checklist.name }}</td>
                 <td class="uk-text-right">
+                    <a href="{{ path('checklist_show', { 'id': checklist.id }) }}"
+                            class="uk-button uk-button-primary">
+                        <i class="uk-icon-eye"></i>
+                    </a>
                     <a href="{{ path('checklist_edit', { 'id': checklist.id }) }}"
                             class="uk-button uk-button-primary">
                         <i class="uk-icon-edit"></i>
                     </a>
-                    <div class="uk-float-right">
+                    <div class="uk-float-right uk-margin-left">
                         {{ form(deleteButtons[checklist.id]) }}
                     </div>
                 </td>

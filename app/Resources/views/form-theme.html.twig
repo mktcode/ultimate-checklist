@@ -1,7 +1,7 @@
 {% extends 'form_div_layout.html.twig' %}
 
 {%- block form_start -%}
-    {% set attr = attr|merge({'class': 'uk-form'}) %}
+    {% set attr = attr|merge({'class': attr.class|default('') ~ ' uk-form'}) %}
     {{ parent() }}
 {%- endblock form_start -%}
 
@@ -16,20 +16,21 @@
 {%- endblock form_row -%}
 
 {%- block form_label -%}
-    {% set label_attr = label_attr|merge({'class': 'uk-form-label'}) %}
+    {% set label_attr = label_attr|merge({'class': label_attr.class|default('') ~ 'uk-form-label'}) %}
     {{ parent() }}
 {%- endblock form_label -%}
 
 {%- block form_widget_simple -%}
     {%- set type = type|default('text') -%}
+
     {% if type is defined and type not in ['hidden', 'checkbox', 'radio'] %}
-        {% set attr = attr|merge({'class': 'uk-width-1-1'}) %}
+        {% set attr = attr|merge({'class': attr.class|default('') ~ ' uk-width-1-1'}) %}
     {% endif %}
     <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
 {%- endblock form_widget_simple -%}
 
 {%- block textarea_widget -%}
-    {% set attr = attr|merge({'class': 'uk-width-1-1'}) %}
+    {% set attr = attr|merge({'class': attr.class|default('') ~ ' uk-width-1-1'}) %}
     <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
 {%- endblock textarea_widget -%}
 
@@ -40,11 +41,11 @@
 
 {%- block button_attributes -%}
     {% if name == 'save' %}
-        {% set attr = attr|merge({'class': 'uk-button uk-button-success'}) %}
+        {% set attr = attr|merge({'class': attr.class|default('') ~ ' uk-button uk-button-success'}) %}
     {% elseif name == 'delete' %}
-        {% set attr = attr|merge({'class': 'uk-button uk-button-danger'}) %}
+        {% set attr = attr|merge({'class': attr.class|default('') ~ ' uk-button uk-button-danger'}) %}
     {% else %}
-        {% set attr = attr|merge({'class': 'uk-button'}) %}
+        {% set attr = attr|merge({'class': attr.class|default('') ~ ' uk-button'}) %}
     {% endif %}
     {{ parent() }}
 {%- endblock button_attributes -%}

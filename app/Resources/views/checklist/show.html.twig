@@ -1,32 +1,52 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <h1>Checklist</h1>
+    <h1>
+        Checkliste <small>{{ checklist.name }}</small>
+        <a href="{{ path('checklist_edit', { 'id': checklist.id }) }}" class="uk-button uk-button-primary">
+            <i class="uk-icon-edit"></i>
+        </a>
+        <a href="{{ path('checklist_index') }}" class="uk-button uk-button-primary uk-float-right">
+            <i class="uk-icon-list"></i>
+            Liste
+        </a>
+    </h1>
 
-    <table>
-        <tbody>
+    <h2>Aufgaben</h2>
+    <table class="uk-table uk-table-striped">
+        <tr>
+            <th>Name</th>
+            <th>Beschreibung</th>
+            <th>Kategorie</th>
+        </tr>
+        {% for task in checklist.tasks %}
             <tr>
-                <th>Id</th>
-                <td>{{ checklist.id }}</td>
+                <td>{{ task.name }}</td>
+                <td>{{ task.description }}</td>
+                <td>{{ task.taskCategory }}</td>
             </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ checklist.name }}</td>
-            </tr>
-        </tbody>
+        {% endfor %}
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('checklist_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('checklist_edit', { 'id': checklist.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    <h2>Durchgeführte Checks</h2>
+    <table class="uk-table uk-table-striped">
+        <tr>
+            <th>Name</th>
+            <th>Benutzer</th>
+            <th>Datum</th>
+            <th></th>
+        </tr>
+        {% for checkInstance in checklist.checkInstances %}
+            <tr>
+                <td>{{ checkInstance.title }}</td>
+                <td>{{ checkInstance.user.username }}</td>
+                <td>{{ checkInstance.date|date('d.m.Y H:i') }}</td>
+                <td class="uk-text-right">
+                    <a href="{{ path('check_task', {'checkInstance': checkInstance.id}) }}" class="uk-button uk-button-primary">
+                        <i class="uk-icon-edit"></i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
 {% endblock %}

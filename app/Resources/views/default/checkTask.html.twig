@@ -1,0 +1,76 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h1>
+        {{ checkInstance.title }}
+        <small class="uk-text-muted uk-float-right">{{ checkInstance.checklist.name }}</small>
+    </h1>
+
+    <div id="task">
+        <h2>
+            <span style="width: 40px; display: inline-block;">
+                <a href="{{ path('check_task_check', {'checkInstance': checkInstance.id, 'task': task.id}) }}"
+                   class="check-task uk-text-success no-smoothState">
+                    <i class="uk-icon-{{ check and check.checked ? 'check-' : '' }}square-o uk-icon-small"></i>
+                </a>
+            </span>
+            {{ task.name }}
+        </h2>
+
+        <small class="uk-text-muted uk-animation-fade {% if not check %} uk-hidden{% endif %}" id="check-meta">
+            letzte Änderung am <span class="date">{% if check %}{{ check.date|date('d.m.Y H:i') }}{% endif %}</span>
+            durch <span class="user">{% if check %}{{ check.user.username }}{% endif %}</span>
+        </small>
+
+        <p class="uk-text-large">
+            {{ task.description }}
+        </p>
+
+        {% if prevTask %}
+            <a href="{{ path('check_task', {'checkInstance': checkInstance.id, 'task': prevTask.id}) }}"
+               class="uk-button uk-button-primary"
+               data-animation="prev">
+                <i class="uk-icon-angle-left"></i> zurück
+            </a>
+        {% endif %}
+
+        {% if nextTask %}
+            <a href="{{ path('check_task', {'checkInstance': checkInstance.id, 'task': nextTask.id}) }}"
+               class="uk-button uk-button-primary"
+               data-animation="next">
+                weiter <i class="uk-icon-angle-right"></i>
+            </a>
+        {% else %}
+            <a href="" class="uk-button uk-button-primary">
+                <i class="uk-icon-check"></i> Fertig!
+            </a>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('assets/vendor/smoothstate/jquery.smoothState.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/task-transitions.js') }}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $(document).on('click', '.check-task', function (e) {
+                e.preventDefault();
+                var btn = $(this);
+                $.get(btn.attr('href'), function (check) {
+                    check = $.parseJSON(check);
+                    if (check.checked) {
+                        btn.find('i').removeClass('uk-icon-square-o').addClass('uk-icon-check-square-o');
+                    } else {
+                        btn.find('i').removeClass('uk-icon-check-square-o').addClass('uk-icon-square-o');
+                    }
+
+                    var meta = $('#check-meta');
+                    meta.removeClass('uk-hidden');
+                    meta.find('.date').text(check.date);
+                    meta.find('.user').text(check.user);
+                });
+            });
+        });
+    </script>
+{% endblock %}

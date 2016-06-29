@@ -3,10 +3,12 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TaskType extends AbstractType
+class CheckInstanceNewType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,11 +17,8 @@ class TaskType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('description')
-            ->add('checklist')
-            ->add('taskCategory')
-            ->add('orderNum')
+            ->add('title', null, ['attr' => ['class' => 'uk-form-large']])
+            ->add('save', SubmitType::class, ['label' => 'Weiter <i class="uk-icon-angle-right"></i>'])
         ;
     }
     
@@ -29,7 +28,7 @@ class TaskType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Task'
+            'data_class' => 'AppBundle\Entity\CheckInstance'
         ));
     }
 }

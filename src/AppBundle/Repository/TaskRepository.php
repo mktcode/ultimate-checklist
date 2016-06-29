@@ -1,6 +1,8 @@
 <?php
 
 namespace AppBundle\Repository;
+use AppBundle\Entity\Checklist;
+use AppBundle\Entity\Task;
 
 /**
  * TaskRepository
@@ -10,4 +12,40 @@ namespace AppBundle\Repository;
  */
 class TaskRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @param Checklist $checklist
+     * @param Task|null $currentTask
+     * @param bool $prev
+     * @return Task|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getNextTask(Checklist $checklist, Task $currentTask = null, $prev = false)
+    {
+        $qb = $this->createQueryBuilder('t')
+            ->where('t.checklist = :checklist');
+
+        if ($currentTask) {
+            $qb->andWhere('t.orderNum ' . ($prev ? '<' : '>') . ' :currentOrderNum');
+            $qb->setParameter('currentOrderNum', $currentTask->getOrderNum());
+        }
+
+        $qb
+            ->setMaxResults(1)
+            ->orderBy('t.orderNum', $prev ? 'DESC' : 'ASC')
+            ->setParameter('checklist', $checklist);
+
+        $task = $qb->getQuery()->getOneOrNullResult();
+
+        return $task;
+    }
+
+    /**
+     * @param Checklist $checklist
+     * @param Task|null $currentTask
+     * @return Task|null
+     */
+    public function getPrevTask(Checklist $checklist, Task $currentTask = null)
+    {
+        return $this->getNextTask($checklist, $currentTask, true);
+    }
 }
