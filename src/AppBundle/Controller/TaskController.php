@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Checklist;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -36,15 +37,16 @@ class TaskController extends Controller
     /**
      * Creates a new Task entity.
      *
-     * @Route("/new", name="task_new")
+     * @Route("/new/{checklist}", name="task_new", defaults={"checklist" = ""})
      * @Method({"GET", "POST"})
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, Checklist $checklist = null)
     {
         $task = new Task();
-        $form = $this->createForm('AppBundle\Form\TaskType', $task);
+        $task->setChecklist($checklist);
+        $form = $this->createForm('AppBundle\Form\TaskType', $task, ['checklist' => $checklist]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -52,10 +54,15 @@ class TaskController extends Controller
             $em->persist($task);
             $em->flush();
 
-            return $this->redirectToRoute('task_show', array('id' => $task->getId()));
+            if ($checklist) {
+                return $this->redirectToRoute('checklist_show', array('id' => $checklist->getId()));
+            } else {
+                return $this->redirectToRoute('task_show', array('id' => $task->getId()));
+            }
         }
 
         return $this->render('task/new.html.twig', array(
+            'checklist' => $checklist,
             'task' => $task,
             'form' => $form->createView(),
         ));
@@ -98,6 +105,8 @@ class TaskController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($task);
             $em->flush();
+
+            $this->addFlash('success', 'Änderungen wurden gespeichert.');
 
             return $this->redirectToRoute('task_edit', array('id' => $task->getId()));
         }

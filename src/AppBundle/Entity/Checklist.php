@@ -30,6 +30,13 @@ class Checklist
     private $name;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
+     */
+    private $description;
+
+    /**
      * @var Task[]
      *
      * @ORM\OneToMany(targetEntity="Task", mappedBy="checklist")
@@ -156,5 +163,29 @@ class Checklist
     public function getCheckInstances()
     {
         return $this->checkInstances;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Checklist
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

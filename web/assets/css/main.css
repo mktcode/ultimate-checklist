@@ -1,3 +1,7 @@
+body {
+    overflow-x: hidden;
+}
+
 #content {
     padding: 25px;
 }

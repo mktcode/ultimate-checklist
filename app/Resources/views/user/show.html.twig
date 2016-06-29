@@ -1,28 +1,38 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <h1>User</h1>
+    <h1>
+        Benutzer
+        <a href="{{ path('user_index') }}" class="uk-button uk-button-primary uk-float-right">
+            <i class="uk-icon-users"></i> Liste
+        </a>
+    </h1>
+    <h2>
+        {{ user.username }}
+        <a href="{{ path('user_edit', { 'id': user.id }) }}" class="uk-button uk-button-primary">
+            <i class="uk-icon-edit"></i>
+        </a>
+    </h2>
 
-    <table>
-        <tbody>
+    <h2>Durchgeführte Checks</h2>
+    <table class="uk-table uk-table-striped">
+        <tr>
+            <th>Name</th>
+            <th>Checkliste</th>
+            <th>Datum</th>
+            <th></th>
+        </tr>
+        {% for checkInstance in user.checkInstances %}
             <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
+                <td>{{ checkInstance.title }}</td>
+                <td>{{ checkInstance.checklist.name }}</td>
+                <td>{{ checkInstance.date|date('d.m.Y - H:i') }} Uhr</td>
+                <td class="uk-text-right">
+                    <a href="{{ path('check_task', {'checkInstance': checkInstance.id}) }}" class="uk-button uk-button-primary">
+                        <i class="uk-icon-edit"></i>
+                    </a>
+                </td>
             </tr>
-        </tbody>
+        {% endfor %}
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('user_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('user_edit', { 'id': user.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
 {% endblock %}

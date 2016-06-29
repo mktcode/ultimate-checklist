@@ -1,39 +1,32 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <h1>Kategorien</h1>
+    <h1>
+        Kategorien
+        <a href="{{ path('taskcategory_new') }}" class="uk-button uk-button-primary uk-float-right">
+            <i class="uk-icon-plus"></i> Neu
+        </a>
+    </h1>
 
     <table class="uk-table uk-table-striped">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Name</th>
-                <th>Actions</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
         {% for taskCategory in taskCategories %}
             <tr>
-                <td><a href="{{ path('taskcategory_show', { 'id': taskCategory.id }) }}">{{ taskCategory.id }}</a></td>
                 <td>{{ taskCategory.name }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('taskcategory_show', { 'id': taskCategory.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('taskcategory_edit', { 'id': taskCategory.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                <td class="uk-text-right">
+                    <a href="{{ path('taskcategory_edit', { 'id': taskCategory.id }) }}"
+                       class="uk-button uk-button-primary">
+                        <i class="uk-icon-edit"></i>
+                    </a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('taskcategory_new') }}">Create a new entry</a>
-        </li>
-    </ul>
 {% endblock %}

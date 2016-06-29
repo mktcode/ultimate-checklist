@@ -9,7 +9,12 @@
         </a>
     </h1>
 
-    {{ form(edit_form) }}
+    {% for message in app.session.flashBag.get('success') %}
+        <div class="uk-alert uk-alert-success" data-uk-alert>
+            <a href="" class="uk-alert-close uk-close"></a>
+            {{ message }}
+        </div>
+    {% endfor %}
 
-    {{ form(delete_form) }}
+    {{ form(edit_form) }}
 {% endblock %}

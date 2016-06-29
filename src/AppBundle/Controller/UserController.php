@@ -90,6 +90,8 @@ class UserController extends Controller
             $userManager = $this->get('fos_user.user_manager');
             $userManager->updateUser($user);
 
+            $this->addFlash('success', 'Änderungen wurden gespeichert.');
+
             return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
         }
 

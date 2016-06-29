@@ -106,6 +106,8 @@ class ChecklistController extends Controller
             $em->persist($checklist);
             $em->flush();
 
+            $this->addFlash('success', 'Änderungen wurden gespeichert.');
+
             return $this->redirectToRoute('checklist_edit', ['id' => $checklist->getId()]);
         }
 

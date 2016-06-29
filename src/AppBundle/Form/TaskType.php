@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,10 +17,17 @@ class TaskType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('description')
-            ->add('checklist')
-            ->add('taskCategory')
-            ->add('orderNum')
+            ->add('description', null, ['label' => 'Beschreibung'])
+        ;
+
+        if ($options['checklist'] === null) {
+            $builder->add('checklist', null, ['label' => 'Checkliste']);
+        }
+
+        $builder
+            ->add('taskCategory', null, ['label' => 'Kategorie'])
+            ->add('orderNum', null, ['label' => 'Reihenfolge'])
+            ->add('save', SubmitType::class, ['label' => '<i class="uk-icon-save"></i> Speichern'])
         ;
     }
     
@@ -29,7 +37,8 @@ class TaskType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Task'
+            'data_class' => 'AppBundle\Entity\Task',
+            'checklist' => null
         ));
     }
 }

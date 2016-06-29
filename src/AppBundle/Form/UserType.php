@@ -3,6 +3,8 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,10 +17,11 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username')
-            ->add('email')
-            ->add('plain_password')
-            ->add('enabled')
+            ->add('username', null, ['label' => 'Benutzername'])
+            ->add('email', null, ['label' => 'E-Mail'])
+            ->add('plain_password', PasswordType::class, ['label' => 'Passwort'])
+            ->add('enabled', null, ['label' => 'Aktiviert'])
+            ->add('save', SubmitType::class, ['label' => '<i class="uk-icon-save"></i> Speichern'])
         ;
     }
 

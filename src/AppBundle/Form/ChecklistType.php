@@ -17,6 +17,7 @@ class ChecklistType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('description', null, ['label' => 'Beschreibung'])
             ->add('save', SubmitType::class, ['label' => '<i class="uk-icon-save"></i> Speichern'])
         ;
     }

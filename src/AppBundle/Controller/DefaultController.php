@@ -62,6 +62,7 @@ class DefaultController extends Controller
         }
 
         return $this->render('default/checkNew.html.twig', [
+            'checklist' => $checklist,
             'form' => $form->createView()
         ]);
     }

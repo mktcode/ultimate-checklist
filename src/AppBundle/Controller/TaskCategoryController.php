@@ -52,7 +52,7 @@ class TaskCategoryController extends Controller
             $em->persist($taskCategory);
             $em->flush();
 
-            return $this->redirectToRoute('taskcategory_show', ['id' => $taskCategory->getId()]);
+            return $this->redirectToRoute('taskcategory_index');
         }
 
         return $this->render('taskcategory/new.html.twig', [
@@ -98,6 +98,8 @@ class TaskCategoryController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($taskCategory);
             $em->flush();
+
+            $this->addFlash('success', 'Änderungen wurden gespeichert.');
 
             return $this->redirectToRoute('taskcategory_edit', ['id' => $taskCategory->getId()]);
         }

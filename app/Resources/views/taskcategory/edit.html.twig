@@ -1,21 +1,19 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <h1>TaskCategory edit</h1>
+    <h1>
+        Kategorie bearbeiten
+        <a href="{{ path('taskcategory_index') }}" class="uk-button uk-button-primary uk-float-right">
+            <i class="uk-icon-folder"></i> List
+        </a>
+    </h1>
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
+    {% for message in app.session.flashBag.get('success') %}
+        <div class="uk-alert uk-alert-success" data-uk-alert>
+            <a href="" class="uk-alert-close uk-close"></a>
+            {{ message }}
+        </div>
+    {% endfor %}
 
-    <ul>
-        <li>
-            <a href="{{ path('taskcategory_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    {{ form(edit_form) }}
 {% endblock %}
