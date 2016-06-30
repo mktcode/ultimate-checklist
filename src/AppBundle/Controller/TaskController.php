@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Checklist;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -91,16 +92,16 @@ class TaskController extends Controller
     /**
      * Displays a form to edit an existing Task entity.
      *
-     * @Route("/{id}/edit", name="task_edit")
+     * @Route("/{id}/edit/{checklist}", name="task_edit", defaults={"checklist" = ""})
      * @Method({"GET", "POST"})
      * @param Request $request
      * @param Task $task
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function editAction(Request $request, Task $task)
+    public function editAction(Request $request, Task $task, Checklist $checklist = null)
     {
         $deleteForm = $this->createDeleteForm($task);
-        $editForm = $this->createForm('AppBundle\Form\TaskType', $task);
+        $editForm = $this->createForm('AppBundle\Form\TaskType', $task, ['checklist' => $checklist]);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -108,13 +109,17 @@ class TaskController extends Controller
             $em->persist($task);
             $em->flush();
 
-            $this->addFlash('success', 'Änderungen wurden gespeichert.');
-
-            return $this->redirectToRoute('task_edit', array('id' => $task->getId()));
+            if ($checklist) {
+                return $this->redirectToRoute('checklist_show', array('id' => $checklist->getId()));
+            } else {
+                $this->addFlash('success', 'Änderungen wurden gespeichert.');
+                return $this->redirectToRoute('task_edit', array('id' => $task->getId()));
+            }
         }
 
         return $this->render('task/edit.html.twig', array(
             'task' => $task,
+            'checklist' => $checklist,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
@@ -157,5 +162,25 @@ class TaskController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    /**
+     * @Route("/updateSort", name="task_update_sort")
+     * @Method("POST")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function updateSortAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $sort = $request->request->all();
+
+        foreach ($sort as $i => $taskId) {
+            $task = $em->getRepository('AppBundle:Task')->find($taskId);
+            $task->setOrderNum($i);
+        }
+        $em->flush();
+
+        return new JsonResponse($sort);
     }
 }

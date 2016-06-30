@@ -3,9 +3,16 @@
 {% block content %}
     <h1>
         Aufgabe bearbeiten
-        <a href="{{ path('task_index') }}" class="uk-button uk-button-primary uk-float-right">
-            <i class="uk-icon-check-square-o"></i> Liste
-        </a>
+        {% if checklist %}
+            <small class="uk-text-muted">{{ checklist.name }}</small>
+            <a href="{{ path('checklist_show', {'id': checklist.id}) }}" class="uk-button uk-button-primary uk-float-right">
+                <i class="uk-icon-list"></i> zurück zur Checkliste
+            </a>
+        {% else %}
+            <a href="{{ path('task_index') }}" class="uk-button uk-button-primary uk-float-right">
+                <i class="uk-icon-check-square-o"></i> Liste
+            </a>
+        {% endif %}
     </h1>
 
     {% for message in app.session.flashBag.get('success') %}

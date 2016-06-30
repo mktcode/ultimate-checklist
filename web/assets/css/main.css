@@ -78,3 +78,7 @@ body {
     line-height: 18px;
     margin-bottom: 15px;
 }
+
+.uk-table tr {
+    border-bottom: solid 1px #eee;
+}

@@ -18,24 +18,45 @@
             <i class="uk-icon-plus"></i> Aufgabe hinzufügen
         </a>
     </h2>
-    <table class="uk-table uk-table-striped">
-        <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Beschreibung</th>
-            <th>Kategorie</th>
-        </tr>
-        {% for task in checklist.tasks %}
+    <table class="uk-table" id="tasks">
+        <thead>
             <tr>
-                <td>{{ task.orderNum }}</td>
-                <td>{{ task.name }}</td>
-                <td>{{ task.description }}</td>
-                <td>{{ task.taskCategory }}</td>
+                <th>#</th>
+                <th>Name</th>
+                <th>Beschreibung</th>
+                <th>Kategorie</th>
             </tr>
-        {% endfor %}
+        </thead>
+        <tbody class="uk-sortable"
+               data-uk-sortable="{handleClass:'uk-sortable-handle', animation:0}"
+               data-update-url="{{ url('task_update_sort') }}">
+            {% for task in checklist.tasks %}
+                <tr data-id="{{ task.id }}">
+                    <td>
+                        <a href="#" class="uk-button uk-sortable-handle">
+                            <i class="uk-icon-arrows-v uk-sortable-handle"></i>
+                        </a>
+                    </td>
+                    <td>{{ task.name }}</td>
+                    <td>{{ task.description }}</td>
+                    <td>{{ task.taskCategory }}</td>
+                    <td>
+                        <a href="{{ path('task_edit', {'id': task.id, 'checklist': checklist.id}) }}"
+                           class="uk-button uk-button-primary">
+                            <i class="uk-icon-edit"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
     </table>
 
-    <h2>Durchgeführte Checks</h2>
+    <h2>
+        Durchgeführte Checks
+        <a href="{{ path('check_new', {'checklist': checklist.id}) }}" class="uk-button uk-button-success uk-float-right">
+            <i class="uk-icon-check"></i> neuen Check starten
+        </a>
+    </h2>
     <table class="uk-table uk-table-striped">
         <tr>
             <th>Name</th>
@@ -56,4 +77,29 @@
             </tr>
         {% endfor %}
     </table>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/vendor/uikit/css/components/sortable.min.css') }}"/>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('assets/vendor/uikit/js/components/sortable.min.js') }}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#tasks').find('.uk-sortable').on('change.uk.sortable', function () {
+                var updateSortUrl = $(this).data('update-url'),
+                    sort = {};
+                $(this).find('tr').each(function (i, item) {
+                    sort[i] = $(item).data('id');
+                });
+
+                $.post(updateSortUrl, sort, function (response) {
+                    console.log(response);
+                })
+            });
+        });
+    </script>
 {% endblock %}
