@@ -19,6 +19,11 @@
         <small class="uk-text-muted uk-float-right">{{ checkInstance.checklist.name }}</small>
     </h1>
 
+    <div class="uk-text-muted copy-link-input hidden-print">
+        <i class="uk-icon-external-link"></i>
+        <input type="text" value="{{ url('check_task', {'checkInstance': checkInstance.id}) }}" onclick="this.select();"/>
+    </div>
+
     <div class="uk-grid">
         <div class="uk-width-medium-1-2">
             <b>Ersteller:</b> {{ checkInstance.user.username }}<br>
