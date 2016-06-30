@@ -48,6 +48,7 @@ class Checklist
      * @var CheckInstance[]
      *
      * @ORM\OneToMany(targetEntity="CheckInstance", mappedBy="checklist")
+     * @ORM\OrderBy(value={"date" = "DESC"})
      */
     private $checkInstances;
 
