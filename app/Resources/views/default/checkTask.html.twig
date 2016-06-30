@@ -36,7 +36,7 @@
         <h2>
             <span style="width: 40px; display: inline-block;">
                 <a href="{{ path('check_task_check', {'checkInstance': checkInstance.id, 'task': task.id}) }}"
-                   class="check-task uk-text-success no-smoothState">
+                   class="uk-text-success check-task no-smoothState">
                     <i class="uk-icon-{{ check and check.checked ? 'check-' : '' }}square-o uk-icon-small"></i>
                 </a>
             </span>
@@ -84,7 +84,9 @@
             $(document).on('click', '.check-task', function (e) {
                 e.preventDefault();
                 var btn = $(this);
+                btn.find('i').removeClass('uk-icon-square-o uk-icon-check-square-o').addClass('uk-icon-spinner uk-icon-spin');
                 $.get(btn.attr('href'), function (check) {
+                    btn.find('i').removeClass('uk-icon-spinner uk-icon-spin');
                     check = $.parseJSON(check);
                     if (check.checked) {
                         btn.find('i').removeClass('uk-icon-square-o').addClass('uk-icon-check-square-o');
