@@ -41,9 +41,9 @@
         <table class="uk-table">
             <thead>
             <tr>
+                <th></th>
                 <th>Aufgabe</th>
                 <th>Beschreibung</th>
-                <th>Erledigt</th>
                 <th style="width: 50px;">Wann</th>
                 <th>Von</th>
                 <th class="hidden-print"></th>
@@ -52,6 +52,7 @@
             <tbody>
             {% for task in checkInstance.checklist.tasks %}
                 <tr>
+                    <td><i class="uk-text-success uk-icon-large uk-icon-{{ task|isChecked(checkInstance) ? 'check-' : '' }}square-o"></i></td>
                     <td>
                         {{ task.name }}
                         {% if task.taskCategory %}
@@ -59,7 +60,6 @@
                         {% endif %}
                     </td>
                     <td><i>{{ task.description }}</i></td>
-                    <td><i class="uk-text-success uk-icon-large uk-icon-{{ task|isChecked(checkInstance) ? 'check-' : '' }}square-o"></i></td>
                     <td>{{ task|checkedDate(checkInstance) }}</td>
                     <td>{{ task|checkedBy(checkInstance) }}</td>
                     <td class="uk-text-right hidden-print">
