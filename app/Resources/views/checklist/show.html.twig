@@ -1,7 +1,7 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <h1>
+    <h1 class="uk-clearfix">
         Checkliste <small>{{ checklist.name }}</small>
         <a href="{{ path('checklist_edit', { 'id': checklist.id }) }}" class="uk-button uk-button-primary">
             <i class="uk-icon-edit"></i>
@@ -12,7 +12,7 @@
         </a>
     </h1>
 
-    <h2>
+    <h2 class="uk-clearfix">
         Aufgaben
         <a href="{{ path('task_new', {'checklist': checklist.id}) }}" class="uk-button uk-button-success uk-float-right">
             <i class="uk-icon-plus"></i> Aufgabe hinzufügen
@@ -27,6 +27,7 @@
                 <th>Name</th>
                 <th>Beschreibung</th>
                 <th>Kategorie</th>
+                <th></th>
             </tr>
             </thead>
             <tbody class="uk-sortable"
@@ -54,7 +55,7 @@
         </table>
     </div>
 
-    <h2>
+    <h2 class="uk-clearfix">
         Durchgeführte Checks
         <a href="{{ path('check_new', {'checklist': checklist.id}) }}" class="uk-button uk-button-success uk-float-right">
             <i class="uk-icon-check"></i> neuen Check starten
