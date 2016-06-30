@@ -21,7 +21,7 @@ class TaskType extends AbstractType
         ;
 
         if ($options['checklist'] === null) {
-            $builder->add('checklist', null, ['label' => 'Checkliste']);
+            $builder->add('checklist', null, ['label' => 'Checkliste', 'required' => true]);
         }
 
         $builder

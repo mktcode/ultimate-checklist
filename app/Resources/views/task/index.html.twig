@@ -14,6 +14,7 @@
                 <th>#</th>
                 <th>Name</th>
                 <th>Beschreibung</th>
+                <th>Checkliste</th>
                 <th></th>
             </tr>
         </thead>
@@ -23,6 +24,7 @@
                 <td>{{ task.orderNum }}</td>
                 <td>{{ task.name }}</td>
                 <td>{{ task.description }}</td>
+                <td>{{ task.checklist.name }}</td>
                 <td class="uk-text-right">
                     <a href="{{ path('task_edit', { 'id': task.id }) }}" class="uk-button uk-button-primary">
                         <i class="uk-icon-edit"></i>
