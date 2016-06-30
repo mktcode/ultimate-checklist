@@ -8,25 +8,27 @@
         </a>
     </h1>
 
-    <table class="uk-table">
-        <thead>
+    <div class="uk-overflow-container">
+        <table class="uk-table">
+            <thead>
             <tr>
                 <th>Name</th>
                 <th></th>
             </tr>
-        </thead>
-        <tbody>
-        {% for taskCategory in taskCategories %}
-            <tr>
-                <td>{{ taskCategory.name }}</td>
-                <td class="uk-text-right">
-                    <a href="{{ path('taskcategory_edit', { 'id': taskCategory.id }) }}"
-                       class="uk-button uk-button-primary">
-                        <i class="uk-icon-edit"></i>
-                    </a>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for taskCategory in taskCategories %}
+                <tr>
+                    <td>{{ taskCategory.name }}</td>
+                    <td class="uk-text-right">
+                        <a href="{{ path('taskcategory_edit', { 'id': taskCategory.id }) }}"
+                           class="uk-button uk-button-primary">
+                            <i class="uk-icon-edit"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

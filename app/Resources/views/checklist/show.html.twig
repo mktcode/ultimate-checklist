@@ -18,18 +18,20 @@
             <i class="uk-icon-plus"></i> Aufgabe hinzufügen
         </a>
     </h2>
-    <table class="uk-table" id="tasks">
-        <thead>
+
+    <div class="uk-overflow-container">
+        <table class="uk-table" id="tasks">
+            <thead>
             <tr>
                 <th>#</th>
                 <th>Name</th>
                 <th>Beschreibung</th>
                 <th>Kategorie</th>
             </tr>
-        </thead>
-        <tbody class="uk-sortable"
-               data-uk-sortable="{handleClass:'uk-sortable-handle', animation:0}"
-               data-update-url="{{ url('task_update_sort') }}">
+            </thead>
+            <tbody class="uk-sortable"
+                   data-uk-sortable="{handleClass:'uk-sortable-handle', animation:0}"
+                   data-update-url="{{ url('task_update_sort') }}">
             {% for task in checklist.tasks %}
                 <tr data-id="{{ task.id }}">
                     <td>
@@ -48,8 +50,9 @@
                     </td>
                 </tr>
             {% endfor %}
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 
     <h2>
         Durchgeführte Checks
@@ -57,26 +60,29 @@
             <i class="uk-icon-check"></i> neuen Check starten
         </a>
     </h2>
-    <table class="uk-table">
-        <tr>
-            <th>Name</th>
-            <th>Benutzer</th>
-            <th>Datum</th>
-            <th></th>
-        </tr>
-        {% for checkInstance in checklist.checkInstances %}
+
+    <div class="uk-overflow-container">
+        <table class="uk-table">
             <tr>
-                <td>{{ checkInstance.title }}</td>
-                <td>{{ checkInstance.user.username }}</td>
-                <td>{{ checkInstance.date|date('d.m.Y H:i') }}</td>
-                <td class="uk-text-right">
-                    <a href="{{ path('check_task', {'checkInstance': checkInstance.id}) }}" class="uk-button uk-button-primary">
-                        <i class="uk-icon-edit"></i>
-                    </a>
-                </td>
+                <th>Name</th>
+                <th>Benutzer</th>
+                <th>Datum</th>
+                <th></th>
             </tr>
-        {% endfor %}
-    </table>
+            {% for checkInstance in checklist.checkInstances %}
+                <tr>
+                    <td>{{ checkInstance.title }}</td>
+                    <td>{{ checkInstance.user.username }}</td>
+                    <td>{{ checkInstance.date|date('d.m.Y H:i') }}</td>
+                    <td class="uk-text-right">
+                        <a href="{{ path('check_task', {'checkInstance': checkInstance.id}) }}" class="uk-button uk-button-primary">
+                            <i class="uk-icon-edit"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 {% endblock %}
 
 {% block stylesheets %}

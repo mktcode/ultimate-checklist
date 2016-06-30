@@ -37,39 +37,41 @@
         </div>
     </div>
 
-    <table class="uk-table">
-        <thead>
-        <tr>
-            <th>Aufgabe</th>
-            <th>Beschreibung</th>
-            <th>Erledigt</th>
-            <th style="width: 50px;">Wann</th>
-            <th>Von</th>
-            <th class="hidden-print"></th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for task in checkInstance.checklist.tasks %}
+    <div class="uk-overflow-container">
+        <table class="uk-table">
+            <thead>
             <tr>
-                <td>
-                    {{ task.name }}
-                    {% if task.taskCategory %}
-                        <br><small class="uk-text-muted">{{ task.taskCategory.name }}</small>
-                    {% endif %}
-                </td>
-                <td><i>{{ task.description }}</i></td>
-                <td><i class="uk-text-success uk-icon-large uk-icon-{{ task|isChecked(checkInstance) ? 'check-' : '' }}square-o"></i></td>
-                <td>{{ task|checkedDate(checkInstance) }}</td>
-                <td>{{ task|checkedBy(checkInstance) }}</td>
-                <td class="uk-text-right hidden-print">
-                    <a href="{{ path('check_task', {'checkInstance': checkInstance.id, 'task': task.id}) }}" class="uk-button uk-button-primary">
-                        <i class="uk-icon-edit"></i>
-                    </a>
-                </td>
+                <th>Aufgabe</th>
+                <th>Beschreibung</th>
+                <th>Erledigt</th>
+                <th style="width: 50px;">Wann</th>
+                <th>Von</th>
+                <th class="hidden-print"></th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for task in checkInstance.checklist.tasks %}
+                <tr>
+                    <td>
+                        {{ task.name }}
+                        {% if task.taskCategory %}
+                            <br><small class="uk-text-muted">{{ task.taskCategory.name }}</small>
+                        {% endif %}
+                    </td>
+                    <td><i>{{ task.description }}</i></td>
+                    <td><i class="uk-text-success uk-icon-large uk-icon-{{ task|isChecked(checkInstance) ? 'check-' : '' }}square-o"></i></td>
+                    <td>{{ task|checkedDate(checkInstance) }}</td>
+                    <td>{{ task|checkedBy(checkInstance) }}</td>
+                    <td class="uk-text-right hidden-print">
+                        <a href="{{ path('check_task', {'checkInstance': checkInstance.id, 'task': task.id}) }}" class="uk-button uk-button-primary">
+                            <i class="uk-icon-edit"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
 
 {% block javascripts %}
