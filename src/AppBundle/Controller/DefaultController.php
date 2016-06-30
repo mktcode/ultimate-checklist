@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Generator\UrlGenerator;
 
 class DefaultController extends Controller
 {
@@ -55,6 +56,18 @@ class DefaultController extends Controller
             $checkInstance->setUser($this->getUser());
             $em->persist($checkInstance);
             $em->flush();
+
+            if ($form->get('sendMail')->getData()) {
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('Checkliste bearbeiten: ' . $checkInstance->getTitle())
+                    ->setFrom('dev@crea.de')
+                    ->setTo($checkInstance->getAssignedUser()->getEmail())
+                    ->setBody(
+                        $this->renderView('default/mail.html.twig', ['checkInstance' => $checkInstance]),
+                        'text/html'
+                    );
+                $this->get('mailer')->send($message);
+            }
 
             $nextTask = $em->getRepository('AppBundle:Task')->getNextTask($checklist);
 

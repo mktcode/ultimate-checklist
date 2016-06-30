@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>{% block title %}Crea Checklisten{% endblock %}</title>
+</head>
+<body>
+
+Hi {{ checkInstance.assignedUser.username|capitalize }}!<br>
+<br>
+{{ checkInstance.user.username|capitalize }} hat einen neuen Check für dich angelegt.<br>
+<br>
+<b>Title:</b> {{ checkInstance.title }}<br>
+<b>Checkliste:</b> {{ checkInstance.checklist.name }}<br>
+<b>Kunde:</b> {{ checkInstance.customer|default('-') }}<br>
+<b>Domain:</b> {{ checkInstance.domain|default('-') }}<br>
+<p>
+    {{ checkInstance.info ? checkInstance.info : '' }}
+</p>
+Hier kannst du den Check durchführen:<br>
+<a href="{{ url('check_task', {'checkInstance': checkInstance.id}) }}">{{ url('check_task', {'checkInstance': checkInstance.id}) }}</a>
+
+</body>
