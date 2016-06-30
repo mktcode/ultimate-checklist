@@ -22,7 +22,16 @@ class User extends BaseUser
     /**
      * @var CheckInstance[]
      *
+     * @ORM\OneToMany(targetEntity="CheckInstance", mappedBy="assignedUser")
+     * @ORM\OrderBy(value={"date": "DESC"})
+     */
+    private $assignedCheckInstances;
+
+    /**
+     * @var CheckInstance[]
+     *
      * @ORM\OneToMany(targetEntity="CheckInstance", mappedBy="user")
+     * @ORM\OrderBy(value={"date": "DESC"})
      */
     private $checkInstances;
 
@@ -107,5 +116,39 @@ class User extends BaseUser
     public function getCheckInstanceChecks()
     {
         return $this->checkInstanceChecks;
+    }
+
+    /**
+     * Add assignedCheckInstance
+     *
+     * @param CheckInstance $assignedCheckInstance
+     *
+     * @return User
+     */
+    public function addAssignedCheckInstance(CheckInstance $assignedCheckInstance)
+    {
+        $this->assignedCheckInstances[] = $assignedCheckInstance;
+
+        return $this;
+    }
+
+    /**
+     * Remove assignedCheckInstance
+     *
+     * @param CheckInstance $assignedCheckInstance
+     */
+    public function removeAssignedCheckInstance(CheckInstance $assignedCheckInstance)
+    {
+        $this->assignedCheckInstances->removeElement($assignedCheckInstance);
+    }
+
+    /**
+     * Get assignedCheckInstances
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAssignedCheckInstances()
+    {
+        return $this->assignedCheckInstances;
     }
 }

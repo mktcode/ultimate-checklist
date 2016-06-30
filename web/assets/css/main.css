@@ -79,6 +79,10 @@ body {
     margin-bottom: 15px;
 }
 
+.uk-table th {
+    background: #eee;
+}
+
 .uk-table tr {
     border-bottom: solid 1px #eee;
 }

@@ -19,10 +19,20 @@
         <small class="uk-text-muted uk-float-right">{{ checkInstance.checklist.name }}</small>
     </h1>
 
-    <b>Ersteller:</b> {{ checkInstance.user.username }}<br>
-    <b>Datum:</b> {{ checkInstance.date|date('d.m.Y H:i') }} Uhr
+    <div class="uk-grid">
+        <div class="uk-width-medium-1-2">
+            <b>Ersteller:</b> {{ checkInstance.user.username }}<br>
+            <b>zuständiger Mitarbeiter:</b> {{ checkInstance.assignedUser.username|default('-') }}<br>
+            <b>Datum:</b> {{ checkInstance.date|date('d.m.Y H:i') }} Uhr<br>
+        </div>
+        <div class="uk-width-medium-1-2">
+            <b>Kunde:</b> {{ checkInstance.customer|default('-') }}<br>
+            <b>Domain:</b> {% if checkInstance.domain %}<a href="{{ checkInstance.domain }}" target="_blank">{{ checkInstance.domain }}</a>{% else %}-{% endif %}<br>
+            <b>Info:</b> {{ checkInstance.info|default('-') }}
+        </div>
+    </div>
 
-    <table class="uk-table uk-table-striped">
+    <table class="uk-table">
         <thead>
         <tr>
             <th>Aufgabe</th>

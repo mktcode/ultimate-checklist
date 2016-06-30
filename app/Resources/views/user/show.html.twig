@@ -14,21 +14,93 @@
         </a>
     </h2>
 
-    <h2>Durchgeführte Checks</h2>
-    <table class="uk-table uk-table-striped">
+    <h2>Dir zugewiesene Checks</h2>
+    <table class="uk-table">
         <tr>
-            <th>Name</th>
+            <th>Titel</th>
             <th>Checkliste</th>
+            <th>Ersteller</th>
+            <th>Domain</th>
+            <th>Kunde</th>
             <th>Datum</th>
+            <th>Info</th>
+            <th></th>
+        </tr>
+        {% for checkInstance in user.assignedCheckInstances %}
+            <tr>
+                <td>{{ checkInstance.title }}</td>
+                <td>{{ checkInstance.checklist.name }}</td>
+                <td>{{ checkInstance.user.username }}</td>
+                <td>
+                    {% if checkInstance.domain %}
+                        <a href="{{ checkInstance.domain }}" target="_blank">{{ checkInstance.domain }}</a>
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+                <td>{{ checkInstance.customer|default('-') }}</td>
+                <td>{{ checkInstance.date|date('d.m.Y H:i') }} Uhr</td>
+                <td>
+                    {% if checkInstance.info %}
+                        <a href="#" class="uk-button" data-uk-tooltip title="{{ checkInstance.info }}">
+                            <i class="uk-icon-info"></i>
+                        </a>
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+                <td class="uk-text-right">
+                    <a href="{{ path('checkinstance_show', { 'id': checkInstance.id }) }}" class="uk-button uk-button-primary">
+                        <i class="uk-icon-eye"></i>
+                    </a>
+                    <a href="{{ path('checkinstance_edit', { 'id': checkInstance.id }) }}" class="uk-button uk-button-primary">
+                        <i class="uk-icon-edit"></i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Von dir angelegte Checks</h2>
+    <table class="uk-table">
+        <tr>
+            <th>Titel</th>
+            <th>Checkliste</th>
+            <th>Domain</th>
+            <th>Kunde</th>
+            <th>zuständiger Mitarbeiter</th>
+            <th>Datum</th>
+            <th>Info</th>
             <th></th>
         </tr>
         {% for checkInstance in user.checkInstances %}
             <tr>
                 <td>{{ checkInstance.title }}</td>
                 <td>{{ checkInstance.checklist.name }}</td>
-                <td>{{ checkInstance.date|date('d.m.Y - H:i') }} Uhr</td>
+                <td>
+                    {% if checkInstance.domain %}
+                        <a href="{{ checkInstance.domain }}" target="_blank">{{ checkInstance.domain }}</a>
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+                <td>{{ checkInstance.customer|default('-') }}</td>
+                <td>{{ checkInstance.assignedUser.username|default('-') }}</td>
+                <td>{{ checkInstance.date|date('d.m.Y H:i') }} Uhr</td>
+                <td>
+                    {% if checkInstance.info %}
+                        <a href="#" class="uk-button" data-uk-tooltip title="{{ checkInstance.info }}">
+                            <i class="uk-icon-info"></i>
+                        </a>
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
                 <td class="uk-text-right">
-                    <a href="{{ path('check_task', {'checkInstance': checkInstance.id}) }}" class="uk-button uk-button-primary">
+                    <a href="{{ path('checkinstance_show', { 'id': checkInstance.id }) }}" class="uk-button uk-button-primary">
+                        <i class="uk-icon-eye"></i>
+                    </a>
+                    <a href="{{ path('checkinstance_edit', { 'id': checkInstance.id }) }}" class="uk-button uk-button-primary">
                         <i class="uk-icon-edit"></i>
                     </a>
                 </td>

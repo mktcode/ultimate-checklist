@@ -6,7 +6,12 @@
         <small class="uk-text-muted uk-float-right">{{ checkInstance.checklist.name }}</small>
     </h1>
 
-    <div class="uk-button-dropdown uk-float-right" data-uk-dropdown="{mode:'click'}">
+    <a href="{{ path('checkinstance_show', {'id': checkInstance.id}) }}"
+       class="uk-button uk-button-primary uk-float-right">
+        <i class="uk-icon-eye"></i> Übersicht
+    </a>
+
+    <div class="uk-button-dropdown uk-float-right uk-margin-right" data-uk-dropdown="{mode:'click'}">
         <button class="uk-button uk-button-primary">Alle Aufgaben <i class="uk-icon-caret-down"></i></button>
         <div class="uk-dropdown">
             <ul class="uk-nav uk-nav-dropdown">

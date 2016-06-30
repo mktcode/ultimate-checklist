@@ -30,6 +30,27 @@ class CheckInstance
     private $title;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="domain", type="string", nullable=true)
+     */
+    private $domain;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="customer", type="string", nullable=true)
+     */
+    private $customer;
+
+    /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="checkInstances")
+     */
+    private $assignedUser;
+
+    /**
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="User", inversedBy="checkInstances")
@@ -56,6 +77,13 @@ class CheckInstance
      * @ORM\Column(name="date", type="datetime")
      */
     private $date;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="info", type="text", nullable=true)
+     */
+    private $info;
 
 
     /**
@@ -203,5 +231,101 @@ class CheckInstance
     public function getCheckInstanceChecks()
     {
         return $this->checkInstanceChecks;
+    }
+
+    /**
+     * Set domain
+     *
+     * @param string $domain
+     *
+     * @return CheckInstance
+     */
+    public function setDomain($domain)
+    {
+        $this->domain = $domain;
+
+        return $this;
+    }
+
+    /**
+     * Get domain
+     *
+     * @return string
+     */
+    public function getDomain()
+    {
+        return $this->domain;
+    }
+
+    /**
+     * Set customer
+     *
+     * @param string $customer
+     *
+     * @return CheckInstance
+     */
+    public function setCustomer($customer)
+    {
+        $this->customer = $customer;
+
+        return $this;
+    }
+
+    /**
+     * Get customer
+     *
+     * @return string
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
+
+    /**
+     * Set assignedUser
+     *
+     * @param \AppBundle\Entity\User $assignedUser
+     *
+     * @return CheckInstance
+     */
+    public function setAssignedUser(\AppBundle\Entity\User $assignedUser = null)
+    {
+        $this->assignedUser = $assignedUser;
+
+        return $this;
+    }
+
+    /**
+     * Get assignedUser
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getAssignedUser()
+    {
+        return $this->assignedUser;
+    }
+
+    /**
+     * Set info
+     *
+     * @param string $info
+     *
+     * @return CheckInstance
+     */
+    public function setInfo($info)
+    {
+        $this->info = $info;
+
+        return $this;
+    }
+
+    /**
+     * Get info
+     *
+     * @return string
+     */
+    public function getInfo()
+    {
+        return $this->info;
     }
 }

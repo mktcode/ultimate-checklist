@@ -26,7 +26,7 @@ class CheckInstanceController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $checkInstances = $em->getRepository('AppBundle:CheckInstance')->findAll();
+        $checkInstances = $em->getRepository('AppBundle:CheckInstance')->findBy([], ['date' => 'DESC']);
 
         return $this->render('checkinstance/index.html.twig', array(
             'checkInstances' => $checkInstances,
