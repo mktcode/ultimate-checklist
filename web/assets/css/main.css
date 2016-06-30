@@ -56,6 +56,12 @@ body {
     color: #ccc;
 }
 
+@media (min-width: 768px) {
+    .copy-link-input input {
+        width: 370px;
+    }
+}
+
 .uk-dropdown {
     padding-top: 0;
     padding-bottom: 0;
