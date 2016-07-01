@@ -52,7 +52,12 @@
             <tbody>
             {% for task in checkInstance.checklist.tasks %}
                 <tr>
-                    <td><i class="uk-text-success uk-icon-large uk-icon-{{ task|isChecked(checkInstance) ? 'check-' : '' }}square-o"></i></td>
+                    <td style="width: 40px; font-size: 20px;">
+                        <a href="{{ path('check_task_check', {'checkInstance': checkInstance.id, 'task': task.id}) }}"
+                           class="uk-text-success check-task no-smoothState">
+                            <i class="uk-icon-{{ task|isChecked(checkInstance) ? 'check-' : '' }}square-o uk-icon-small"></i>
+                        </a>
+                    </td>
                     <td>
                         {{ task.name }}
                         {% if task.taskCategory %}
@@ -78,25 +83,5 @@
     {{ parent() }}
     <script type="text/javascript" src="{{ asset('assets/vendor/smoothstate/jquery.smoothState.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/transitions.js') }}"></script>
-    <script type="text/javascript">
-        $(function () {
-            $(document).on('click', '.check-task', function (e) {
-                e.preventDefault();
-                var btn = $(this);
-                $.get(btn.attr('href'), function (check) {
-                    check = $.parseJSON(check);
-                    if (check.checked) {
-                        btn.find('i').removeClass('uk-icon-square-o').addClass('uk-icon-check-square-o');
-                    } else {
-                        btn.find('i').removeClass('uk-icon-check-square-o').addClass('uk-icon-square-o');
-                    }
-
-                    var meta = $('#check-meta');
-                    meta.removeClass('uk-hidden');
-                    meta.find('.date').text(check.date);
-                    meta.find('.user').text(check.user);
-                });
-            });
-        });
-    </script>
+    <script type="text/javascript" src="{{ asset('assets/js/checkTask.js') }}"></script>
 {% endblock %}
