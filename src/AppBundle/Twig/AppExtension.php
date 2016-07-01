@@ -24,6 +24,7 @@ class AppExtension extends \Twig_Extension
             new \Twig_SimpleFilter('isChecked', array($this, 'isCheckedFilter')),
             new \Twig_SimpleFilter('checkedBy', array($this, 'checkedByFilter')),
             new \Twig_SimpleFilter('checkedDate', array($this, 'checkedDateFilter')),
+            new \Twig_SimpleFilter('checkProgress', array($this, 'checkProgressFilter')),
         );
     }
 
@@ -55,6 +56,21 @@ class AppExtension extends \Twig_Extension
         ]);
 
         return $check ? $check->getDate()->format('d.m.Y H:i') . ' Uhr' : '';
+    }
+
+    public function checkProgressFilter(CheckInstance $checkInstance)
+    {
+        $checked = 0;
+        foreach ($checkInstance->getChecklist()->getTasks() as $task) {
+            $check = $this->em->getRepository('AppBundle:CheckInstanceCheck')->findOneBy([
+                'task' => $task,
+                'checkInstance' => $checkInstance
+            ]);
+
+            $checked += $check ? (int) $check->isChecked() : 0;
+        }
+
+        return round($checked / $checkInstance->getChecklist()->getTasks()->count() * 100);
     }
 
     public function getName()

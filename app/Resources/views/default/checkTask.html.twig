@@ -32,6 +32,10 @@
         <input type="text" value="{{ url('check_task', {'checkInstance': checkInstance.id}) }}" onclick="this.select();"/>
     </div>
 
+    <div class="uk-progress hidden-print">
+        <div class="uk-progress-bar" style="width: {{ checkInstance|checkProgress }}%;">{{ checkInstance|checkProgress }} %</div>
+    </div>
+
     <div id="task">
         <h2>
             <span style="width: 40px; display: inline-block;">
@@ -73,6 +77,11 @@
             </a>
         {% endif %}
     </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/vendor/uikit/css/components/progress.min.css') }}"/>
 {% endblock %}
 
 {% block javascripts %}

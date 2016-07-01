@@ -133,10 +133,23 @@ class DefaultController extends Controller
 
         $em->flush();
 
+        // get percentage
+        $checked = 0;
+        foreach ($checkInstance->getChecklist()->getTasks() as $task) {
+            $c = $em->getRepository('AppBundle:CheckInstanceCheck')->findOneBy([
+                'task' => $task,
+                'checkInstance' => $checkInstance
+            ]);
+
+            $checked += $c ? (int) $c->isChecked() : 0;
+        }
+        $percentage = round($checked / $checkInstance->getChecklist()->getTasks()->count() * 100);
+
         return new JsonResponse(json_encode([
             'checked' => $check->isChecked(),
             'user' => $check->getUser()->getUsername(),
-            'date' => $check->getDate()->format('d.m.Y H:i')
+            'date' => $check->getDate()->format('d.m.Y H:i'),
+            'percentage' => $percentage
         ]));
     }
 }

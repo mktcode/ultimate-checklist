@@ -37,6 +37,10 @@
         </div>
     </div>
 
+    <div class="uk-progress hidden-print">
+        <div class="uk-progress-bar" style="width: {{ checkInstance|checkProgress }}%;">{{ checkInstance|checkProgress }} %</div>
+    </div>
+
     <div class="uk-overflow-container">
         <table class="uk-table">
             <thead>
@@ -77,6 +81,11 @@
             </tbody>
         </table>
     </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/vendor/uikit/css/components/progress.min.css') }}"/>
 {% endblock %}
 
 {% block javascripts %}

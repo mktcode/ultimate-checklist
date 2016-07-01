@@ -12,10 +12,14 @@ $(function () {
                 btn.find('i').removeClass('uk-icon-check-square-o').addClass('uk-icon-square-o');
             }
 
+            // update meta (last change and user)
             var meta = $('#check-meta');
             meta.removeClass('uk-hidden');
             meta.find('.date').text(check.date);
             meta.find('.user').text(check.user);
+
+            // update percentage of progressbar
+            $('.uk-progress-bar').css('width', check.percentage + '%').text(check.percentage + '%');
         });
     });
 });
