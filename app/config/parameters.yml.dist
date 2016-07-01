@@ -6,7 +6,7 @@ parameters:
     database_password: ~
 
     mailer_transport:  smtp
-    mailer_host:       smtp@crea.de
+    mailer_host:       smtp.crea.de
     mailer_user:       cms@crea.de
     mailer_password:   crea2525
 
