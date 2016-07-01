@@ -46,7 +46,7 @@ class CheckInstance
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="checkInstances")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="assignedCheckInstances")
      */
     private $assignedUser;
 
