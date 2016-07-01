@@ -15,9 +15,9 @@
                 <tr>
                     <th>Titel</th>
                     <th>Checkliste</th>
-                    <th>Ersteller</th>
                     <th>Domain</th>
                     <th>Kunde</th>
+                    <th>Ersteller</th>
                     <th>zuständiger Mitarbeiter</th>
                     <th>Datum</th>
                     <th></th>
@@ -26,9 +26,15 @@
             <tbody>
             {% for checkInstance in checkInstances %}
                 <tr>
+                    <td class="uk-padding-remove" colspan="8">
+                        <div class="uk-progress uk-progress-mini uk-margin-remove{% if (checkInstance|checkProgress == 100) %} uk-progress-success{% endif %}">
+                            <div class="uk-progress-bar" style="width: {{ checkInstance|checkProgress }}%;"></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
                     <td>{{ checkInstance.title }}</td>
                     <td>{{ checkInstance.checklist.name }}</td>
-                    <td>{{ checkInstance.user.username }}</td>
                     <td>
                         {% if checkInstance.domain %}
                             <a href="{{ checkInstance.domain }}" target="_blank">{{ checkInstance.domain }}</a>
@@ -37,6 +43,7 @@
                         {% endif %}
                     </td>
                     <td>{{ checkInstance.customer|default('-') }}</td>
+                    <td>{{ checkInstance.user.username }}</td>
                     <td>{{ checkInstance.assignedUser.username|default('-') }}</td>
                     <td>{{ checkInstance.date|date('d.m.Y H:i') }} Uhr</td>
                     <td class="uk-text-right">

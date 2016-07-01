@@ -19,7 +19,12 @@ $(function () {
             meta.find('.user').text(check.user);
 
             // update percentage of progressbar
-            $('.uk-progress-bar').css('width', check.percentage + '%').text(check.percentage + '%');
+            var progress = $('.uk-progress');
+            progress.find('.uk-progress-bar').css('width', check.percentage + '%').text(check.percentage + '%');
+            check.percentage == 100
+                ? progress.addClass('uk-progress-success')
+                : progress.removeClass('uk-progress-success')
+            ;
         });
     });
 });
