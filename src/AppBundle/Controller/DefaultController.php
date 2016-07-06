@@ -57,7 +57,7 @@ class DefaultController extends Controller
             $em->persist($checkInstance);
             $em->flush();
 
-            if ($form->get('sendMail')->getData()) {
+            if ($form->get('sendMail')->getData() && $checkInstance->getAssignedUser()) {
                 $message = \Swift_Message::newInstance()
                     ->setSubject('Checkliste bearbeiten: ' . $checkInstance->getTitle())
                     ->setFrom('dev@crea.de')
