@@ -14,5 +14,5 @@ parameters:
 
     locale:            en
 
-    points.init:       5
-    points.check:      10
+    points.init:       50
+    points.check:      5
