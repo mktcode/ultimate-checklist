@@ -66,12 +66,12 @@
         <table class="uk-table">
             <tr>
                 <th>Titel</th>
-                <th>Checkliste</th>
                 <th>Domain</th>
                 <th>Kunde</th>
                 <th>Ersteller</th>
-                <th>zuständiger Mitarbeiter</th>
-                <th>Datum</th>
+                <th>erstellt am</th>
+                <th>zuständig</th>
+                <th>Deadline</th>
                 <th>Info</th>
                 <th></th>
             </tr>
@@ -85,7 +85,6 @@
                 </tr>
                 <tr>
                     <td>{{ checkInstance.title }}</td>
-                    <td>{{ checkInstance.checklist.name }}</td>
                     <td>
                         {% if checkInstance.domain %}
                             <a href="{{ checkInstance.domain }}" target="_blank">{{ checkInstance.domain }}</a>
@@ -95,8 +94,16 @@
                     </td>
                     <td>{{ checkInstance.customer|default('-') }}</td>
                     <td>{{ checkInstance.user.username }}</td>
-                    <td>{{ checkInstance.assignedUser.username|default('-') }}</td>
                     <td>{{ checkInstance.date|date('d.m.Y H:i') }} Uhr</td>
+                    <td>{{ checkInstance.assignedUser.username|default('-') }}</td>
+                    <td>
+                        {% if checkInstance.deadline %}
+                            {{ checkInstance.deadline|date('d.m.Y') }}<br>
+                            {{ checkInstance.deadline|date('H:i') }} Uhr
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
                     <td>
                         {% if checkInstance.info %}
                             <a href="#" class="uk-button" data-uk-tooltip title="{{ checkInstance.info }}">
