@@ -1,0 +1,18 @@
+{% extends "::layoutLogin.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block bodyClasses %}login{% endblock %}
+
+{% block content %}
+    <div class="uk-contrast">
+        {{ form_start(form, { 'action': path('fos_user_resetting_reset', {'token': token}), 'attr': { 'class': 'fos_user_resetting_reset' } }) }}
+        <div class="uk-form-row">
+            {{ form_widget(form) }}
+        </div>
+        <div class="uk-form-row">
+            <input type="submit" class="uk-button uk-button-success" value="{{ 'resetting.reset.submit'|trans }}" />
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/vendor/uikit/css/components/tooltip.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/vendor/uikit/css/components/autocomplete.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/vendor/uikit/css/components/datepicker.min.css') }}"/>
     <link rel="stylesheet" href="{{ asset('assets/vendor/uikit/css/components/progress.min.css') }}"/>
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}"/>
 {% endblock %}
@@ -43,7 +46,6 @@
             <li>
                 <a href="{{ path('fos_user_security_logout') }}"
                    id="logout-button"
-                   class="uk-text-danger"
                    data-uk-tooltip title="Abmelden">
                     <i class="uk-icon-power-off"></i>
                 </a>

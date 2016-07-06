@@ -6,6 +6,7 @@ A Symfony project created on May 24, 2016, 6:56 pm.
 Brainstorm
 ==========
 
+- display checked checklists as "points"
 - create checklists
 - define checks
 - define check order

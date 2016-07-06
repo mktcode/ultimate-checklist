@@ -2,6 +2,12 @@ body {
     overflow-x: hidden;
 }
 
+.uk-navbar,
+.uk-navbar-nav > li > a {
+    background: #f38d00;
+    color: #fff;
+}
+
 #logout-button {
     transition: all 0.3s ease;
 }
@@ -91,4 +97,8 @@ body {
 
 .uk-table tr {
     border-bottom: solid 1px #eee;
+}
+
+body.login {
+    background: #f38d00;
 }
