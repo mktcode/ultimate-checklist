@@ -2,9 +2,13 @@ body {
     overflow-x: hidden;
 }
 
+body.login {
+    background: #333;
+}
+
 .uk-navbar,
 .uk-navbar-nav > li > a {
-    background: #f38d00;
+    background: #333;
     color: #fff;
 }
 
@@ -97,8 +101,4 @@ body {
 
 .uk-table tr {
     border-bottom: solid 1px #eee;
-}
-
-body.login {
-    background: #f38d00;
 }
