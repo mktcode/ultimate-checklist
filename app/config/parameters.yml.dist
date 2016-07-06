@@ -13,3 +13,6 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
 
     locale:            en
+
+    points.init:       5
+    points.check:      10

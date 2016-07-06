@@ -53,6 +53,10 @@
         </ul>
         <div class="uk-navbar-content uk-navbar-flip uk-hidden-small">
             Hi {{ app.user|capitalize }}!
+            <span class="uk-badge uk-badge-success uk-badge-notification uk-margin-left"
+                  data-uk-tooltip title="Punkte">
+                {{ app.user|points }}
+            </span>
         </div>
         <div class="uk-navbar-content uk-navbar-center uk-hidden-small">
             Crea Checklisten
