@@ -6,25 +6,26 @@ A Symfony project created on May 24, 2016, 6:56 pm.
 Brainstorm
 ==========
 
-- display checked checklists as "points"
-- create checklists
-- define checks
-- define check order
-- make checks interdependent
-- make checks optional
-- checks with parent/child relation
-- define decision based checks
-- attach comments/media input
-- print checklist
-- download as PDF
-- send as E-Mail
-- share
-- visualize check score in percent
-- user accounts
-- define checks only a specific user can check
-- configure notifications for users when checks were done/have to be done
-- included presets for common tasks to be checked
-- awesome responsive ui
-- 1 free checklist
-- bye checklist slots for 1$/€
-- video tutorial
+- [x] display checked checklists as "points"
+- [x] create checklists
+- [x] define checks
+- [x] define check order
+- [x] awesome responsive ui
+- [x] print checklist
+- [x] send as E-Mail
+- [x] visualize check score in percent
+- [x] user accounts
+- [ ] make checks interdependent
+- [ ] make checks optional
+- [ ] checks with parent/child relation
+- [ ] define decision based checks
+- [ ] attach comments/media input
+- [ ] download as PDF
+- [ ] share
+- [ ] define checks only a specific user can check
+- [ ] configure notifications for users when checks were done/have to be done
+- [ ] included presets for common tasks to be checked
+- [ ] 1 free checklist
+- [ ] bye checklist slots for 1$/€
+- [ ] video tutorial
+- [ ] languages/i18n
