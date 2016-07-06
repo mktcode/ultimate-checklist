@@ -26,9 +26,9 @@
 
     <div class="uk-grid uk-margin-bottom">
         <div class="uk-width-medium-1-2">
-            <b>Ersteller:</b> {{ checkInstance.user.username }}<br>
+            <b>Ersteller:</b> {{ checkInstance.user.username }} ({{ checkInstance.date|date('d.m.Y H:i') }} Uhr)<br>
             <b>zuständiger Mitarbeiter:</b> {{ checkInstance.assignedUser.username|default('-') }}<br>
-            <b>Datum:</b> {{ checkInstance.date|date('d.m.Y H:i') }} Uhr<br>
+            <b>Deadline:</b> {% if checkInstance.deadline %}{{ checkInstance.deadline|date('d.m.Y H:i') }} Uhr{% else %}-{% endif %}<br>
         </div>
         <div class="uk-width-medium-1-2">
             <b>Kunde:</b> {{ checkInstance.customer|default('-') }}<br>

@@ -15,13 +15,14 @@
                 <th>Domain</th>
                 <th>Kunde</th>
                 <th>Ersteller</th>
-                <th>Datum</th>
+                <th>erstellt am</th>
+                <th>Deadline</th>
                 <th>Info</th>
                 <th></th>
             </tr>
             {% for checkInstance in app.user.assignedCheckInstances %}
                 <tr>
-                    <td class="uk-padding-remove" colspan="8">
+                    <td class="uk-padding-remove" colspan="9">
                         <div class="uk-progress uk-progress-mini uk-margin-remove{% if (checkInstance|checkProgress == 100) %} uk-progress-success{% endif %}">
                             <div class="uk-progress-bar" style="width: {{ checkInstance|checkProgress }}%;"></div>
                         </div>
@@ -39,7 +40,18 @@
                     </td>
                     <td>{{ checkInstance.customer|default('-') }}</td>
                     <td>{{ checkInstance.user.username }}</td>
-                    <td>{{ checkInstance.date|date('d.m.Y H:i') }} Uhr</td>
+                    <td>
+                        {{ checkInstance.date|date('d.m.Y') }}<br>
+                        {{ checkInstance.date|date('H:i') }} Uhr
+                    </td>
+                    <td>
+                        {% if checkInstance.deadline %}
+                            {{ checkInstance.deadline|date('d.m.Y') }}<br>
+                            {{ checkInstance.deadline|date('H:i') }} Uhr
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
                     <td>
                         {% if checkInstance.info %}
                             <a href="#" class="uk-button" data-uk-tooltip title="{{ checkInstance.info }}">
@@ -70,8 +82,9 @@
                 <th>Checkliste</th>
                 <th>Domain</th>
                 <th>Kunde</th>
-                <th>zuständiger Mitarbeiter</th>
-                <th>Datum</th>
+                <th>erstellt am</th>
+                <th>zuständig</th>
+                <th>Deadline</th>
                 <th>Info</th>
                 <th></th>
             </tr>
@@ -94,8 +107,19 @@
                         {% endif %}
                     </td>
                     <td>{{ checkInstance.customer|default('-') }}</td>
+                    <td>
+                        {{ checkInstance.date|date('d.m.Y') }}<br>
+                        {{ checkInstance.date|date('H:i') }} Uhr
+                    </td>
                     <td>{{ checkInstance.assignedUser.username|default('-') }}</td>
-                    <td>{{ checkInstance.date|date('d.m.Y H:i') }} Uhr</td>
+                    <td>
+                        {% if checkInstance.deadline %}
+                            {{ checkInstance.deadline|date('d.m.Y') }}<br>
+                            {{ checkInstance.deadline|date('H:i') }} Uhr
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
                     <td>
                         {% if checkInstance.info %}
                             <a href="#" class="uk-button" data-uk-tooltip title="{{ checkInstance.info }}">

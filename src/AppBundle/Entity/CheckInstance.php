@@ -79,6 +79,13 @@ class CheckInstance
     private $date;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="deadline", type="datetime", nullable=true)
+     */
+    private $deadline;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="info", type="text", nullable=true)
@@ -327,5 +334,29 @@ class CheckInstance
     public function getInfo()
     {
         return $this->info;
+    }
+
+    /**
+     * Set deadline
+     *
+     * @param \DateTime $deadline
+     *
+     * @return CheckInstance
+     */
+    public function setDeadline($deadline)
+    {
+        $this->deadline = $deadline;
+
+        return $this;
+    }
+
+    /**
+     * Get deadline
+     *
+     * @return \DateTime
+     */
+    public function getDeadline()
+    {
+        return $this->deadline;
     }
 }
