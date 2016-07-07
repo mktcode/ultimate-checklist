@@ -102,3 +102,7 @@ body.login {
 .uk-table tr {
     border-bottom: solid 1px #eee;
 }
+
+.progress-bar-row {
+    border-top: solid 1px #999;
+}

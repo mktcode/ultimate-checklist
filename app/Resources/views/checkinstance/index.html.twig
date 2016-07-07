@@ -27,7 +27,7 @@
             <tbody>
             {% for checkInstance in checkInstances %}
                 <tr>
-                    <td class="uk-padding-remove" colspan="9">
+                    <td class="uk-padding-remove progress-bar-row" colspan="9">
                         <div class="uk-progress uk-progress-mini uk-progress-striped uk-margin-remove{% if (checkInstance|checkProgress == 100) %} uk-progress-success{% endif %}">
                             <div class="uk-progress-bar" style="width: {{ checkInstance|checkProgress }}%;"></div>
                         </div>
