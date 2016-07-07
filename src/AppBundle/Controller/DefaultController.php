@@ -63,7 +63,7 @@ class DefaultController extends Controller
                     ->setFrom('dev@crea.de')
                     ->setTo($checkInstance->getAssignedUser()->getEmail())
                     ->setBody(
-                        $this->renderView('default/mail.html.twig', ['checkInstance' => $checkInstance]),
+                        $this->renderView('default/mailNew.html.twig', ['checkInstance' => $checkInstance]),
                         'text/html'
                     );
                 $this->get('mailer')->send($message);
@@ -133,17 +133,21 @@ class DefaultController extends Controller
 
         $em->flush();
 
-        // get percentage
-        $checked = 0;
-        foreach ($checkInstance->getChecklist()->getTasks() as $task) {
-            $c = $em->getRepository('AppBundle:CheckInstanceCheck')->findOneBy([
-                'task' => $task,
-                'checkInstance' => $checkInstance
-            ]);
+        $percentage = $this->get('app.helper')->getCheckInstanceProgress($checkInstance);
 
-            $checked += $c ? (int) $c->isChecked() : 0;
+        // send mail if 100%
+        if ($percentage == 100) {
+            // send mail
+            $message = \Swift_Message::newInstance()
+                ->setSubject('Fertig! Checkliste: ' . $checkInstance->getTitle())
+                ->setFrom(['dev@crea.de' => 'Crea Checklisten'])
+                ->setTo($checkInstance->getUser()->getEmail())
+                ->setBody(
+                    $this->renderView('default/mailComplete.html.twig', ['checkInstance' => $checkInstance]),
+                    'text/html'
+                );
+            $this->get('mailer')->send($message);
         }
-        $percentage = round($checked / $checkInstance->getChecklist()->getTasks()->count() * 100);
 
         return new JsonResponse(json_encode([
             'checked' => $check->isChecked(),

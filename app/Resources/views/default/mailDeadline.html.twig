@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>{% block title %}Crea Checklisten{% endblock %}</title>
+</head>
+<body>
+
+Hi {{ checkInstance.assignedUser.username|capitalize }}!<br>
+<br>
+Die Deadline der Checkliste {{ checkInstance.title }} ist am {{ checkInstance.deadline|date('d.m.Y') }} um {{ checkInstance.deadline|date('H:i') }} Uhr.<br>
+<br>
+Aktueller Status: {{ checkInstance|checkProgress }} %<br>
+<br>
+Hier kannst du den Check durchführen:<br>
+<a href="{{ helper.parameter('scheme') ~ '://' ~ helper.parameter('host') ~ path('check_task', {'checkInstance': checkInstance.id}) }}">
+    {{ helper.parameter('scheme') ~ '://' ~ helper.parameter('host') ~ path('check_task', {'checkInstance': checkInstance.id}) }}
+</a>
+
+</body>

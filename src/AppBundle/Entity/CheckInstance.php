@@ -86,6 +86,13 @@ class CheckInstance
     private $deadline;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="deadline_reminder_last_sent", type="datetime", nullable=true)
+     */
+    private $deadlineReminderLastSent;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="info", type="text", nullable=true)
@@ -291,11 +298,11 @@ class CheckInstance
     /**
      * Set assignedUser
      *
-     * @param \AppBundle\Entity\User $assignedUser
+     * @param User $assignedUser
      *
      * @return CheckInstance
      */
-    public function setAssignedUser(\AppBundle\Entity\User $assignedUser = null)
+    public function setAssignedUser(User $assignedUser = null)
     {
         $this->assignedUser = $assignedUser;
 
@@ -305,7 +312,7 @@ class CheckInstance
     /**
      * Get assignedUser
      *
-     * @return \AppBundle\Entity\User
+     * @return User
      */
     public function getAssignedUser()
     {
@@ -358,5 +365,29 @@ class CheckInstance
     public function getDeadline()
     {
         return $this->deadline;
+    }
+
+    /**
+     * Set deadlineReminderLastSent
+     *
+     * @param \DateTime $deadlineReminderLastSent
+     *
+     * @return CheckInstance
+     */
+    public function setDeadlineReminderLastSent($deadlineReminderLastSent)
+    {
+        $this->deadlineReminderLastSent = $deadlineReminderLastSent;
+
+        return $this;
+    }
+
+    /**
+     * Get deadlineReminderLastSent
+     *
+     * @return \DateTime
+     */
+    public function getDeadlineReminderLastSent()
+    {
+        return $this->deadlineReminderLastSent;
     }
 }

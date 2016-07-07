@@ -1,18 +1,21 @@
 parameters:
-    database_host:     127.0.0.1
-    database_port:     ~
-    database_name:     symfony
-    database_user:     root
+    database_host: 127.0.0.1
+    database_port: ~
+    database_name: symfony
+    database_user: root
     database_password: ~
 
-    mailer_transport:  smtp
-    mailer_host:       smtp.crea.de
-    mailer_user:       cms@crea.de
-    mailer_password:   crea2525
+    mailer_transport: smtp
+    mailer_host: smtp.crea.de
+    mailer_user: cms@crea.de
+    mailer_password: crea2525
 
-    secret:            ThisTokenIsNotSoSecretChangeIt
+    secret: ThisTokenIsNotSoSecretChangeIt
 
-    locale:            en
+    locale: en
 
-    points.init:       50
-    points.check:      5
+    points.init: 50
+    points.check: 5
+
+    deadline_reminder_span: 604800
+    deadline_reminder_interval: 86400

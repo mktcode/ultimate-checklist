@@ -12,9 +12,11 @@ Brainstorm
 - [x] define check order
 - [x] awesome responsive ui
 - [x] print checklist
-- [x] send as E-Mail
+- [x] send as email
 - [x] visualize check score in percent
 - [x] user accounts
+- [ ] email when checkliste complete
+- [ ] email when deadline is coming
 - [ ] make checks interdependent
 - [ ] make checks optional
 - [ ] checks with parent/child relation
