@@ -4,9 +4,12 @@ parameters:
 #    parameter_name: value
 
 services:
+    app.helper:
+        class: AppBundle\Service\Helper
+        arguments: ['@service_container']
     app.twig_extension:
-      class: AppBundle\Twig\AppExtension
-      arguments: ['@service_container']
-      public: false
-      tags:
-          - { name: twig.extension }
+        class: AppBundle\Twig\AppExtension
+        arguments: ['@app.helper']
+        public: false
+        tags:
+            - { name: twig.extension }

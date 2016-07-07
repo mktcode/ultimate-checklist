@@ -32,6 +32,8 @@ framework:
 
 # Twig Configuration
 twig:
+    globals:
+        helper: '@app.helper'
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     form_themes:

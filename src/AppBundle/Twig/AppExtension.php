@@ -6,25 +6,20 @@ use AppBundle\Entity\CheckInstance;
 use AppBundle\Entity\CheckInstanceCheck;
 use AppBundle\Entity\Task;
 use AppBundle\Entity\User;
+use AppBundle\Service\Helper;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class AppExtension extends \Twig_Extension
 {
     /**
-     * @var ContainerInterface
+     * @var Helper
      */
-    private $container;
+    private $helper;
 
-    /**
-     * @var EntityManager
-     */
-    private $em;
-
-    public function __construct(ContainerInterface $container)
+    public function __construct(Helper $helper)
     {
-        $this->container = $container;
-        $this->em = $this->container->get('doctrine.orm.entity_manager');
+        $this->helper = $helper;
     }
 
     public function getFilters()
@@ -40,66 +35,27 @@ class AppExtension extends \Twig_Extension
 
     public function isCheckedFilter(Task $task, CheckInstance $checkInstance)
     {
-        $check = $this->em->getRepository('AppBundle:CheckInstanceCheck')->findOneBy([
-            'task' => $task,
-            'checkInstance' => $checkInstance
-        ]);
-
-        return $check ? $check->isChecked() : false;
+        return $this->helper->isTaskChecked($task, $checkInstance);
     }
 
     public function checkedByFilter(Task $task, CheckInstance $checkInstance)
     {
-        $check = $this->em->getRepository('AppBundle:CheckInstanceCheck')->findOneBy([
-            'task' => $task,
-            'checkInstance' => $checkInstance
-        ]);
-
-        return $check ? $check->getUser()->getUsername() : '';
+        return $this->helper->getTaskCheckedBy($task, $checkInstance);
     }
 
     public function checkedDateFilter(Task $task, CheckInstance $checkInstance)
     {
-        $check = $this->em->getRepository('AppBundle:CheckInstanceCheck')->findOneBy([
-            'task' => $task,
-            'checkInstance' => $checkInstance
-        ]);
-
-        return $check ? $check->getDate()->format('d.m.Y H:i') . ' Uhr' : '';
+        return $this->helper->getTaskCheckedDate($task, $checkInstance);
     }
 
     public function checkProgressFilter(CheckInstance $checkInstance)
     {
-        $checked = 0;
-        foreach ($checkInstance->getChecklist()->getTasks() as $task) {
-            $check = $this->em->getRepository('AppBundle:CheckInstanceCheck')->findOneBy([
-                'task' => $task,
-                'checkInstance' => $checkInstance
-            ]);
-
-            $checked += $check ? (int) $check->isChecked() : 0;
-        }
-
-        return round($checked / $checkInstance->getChecklist()->getTasks()->count() * 100);
+        return $this->helper->getCheckInstanceProgress($checkInstance);
     }
 
     public function pointsFilter(User $user)
     {
-        $points = 0;
-        $pointsInit = $this->container->getParameter('points.init');
-        $pointsCheck = $this->container->getParameter('points.check');
-
-        $checks = $user->getCheckInstanceChecks();
-        foreach ($checks as $check) {
-            $points += $check->isChecked() ? $pointsCheck : 0;
-        }
-
-        $checkInstances = $user->getCheckInstances();
-        foreach ($checkInstances as $checkInstance) {
-            $points += $this->checkProgressFilter($checkInstance) == 100 ? $pointsInit : 0;
-        }
-
-        return $points;
+        return $this->helper->getPointsForUser($user);
     }
 
     public function getName()
