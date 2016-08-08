@@ -27,4 +27,20 @@ $(function () {
             ;
         });
     });
+
+    $(document).on('keyup', '#noteform textarea', function (e) {
+        e.preventDefault();
+        var data = $(this).serialize();
+        delay(function(){
+            $.post($('#noteform').attr('action'), data);
+        }, 300);
+    });
+
+    var delay = (function() {
+        var timer = 0;
+        return function(callback, ms){
+            clearTimeout (timer);
+            timer = setTimeout(callback, ms);
+        };
+    })();
 });

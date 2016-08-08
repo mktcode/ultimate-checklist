@@ -156,4 +156,42 @@ class DefaultController extends Controller
             'percentage' => $percentage
         ]));
     }
+
+    /**
+     * @Route("/check/{checkInstance}/{task}/note", name="check_task_note")
+     */
+    public function checkTaskNoteAction(Request $request, CheckInstance $checkInstance, Task $task)
+    {
+        if ($request->request->has('note')) {
+            $em = $this->getDoctrine()->getManager();
+
+            $check = $em->getRepository('AppBundle:CheckInstanceCheck')->findOneBy([
+                'checkInstance' => $checkInstance,
+                'task' => $task
+            ]);
+
+            if (!$check) {
+                $check = new CheckInstanceCheck();
+                $check->setCheckInstance($checkInstance);
+                $check->setTask($task);
+                $em->persist($check);
+            }
+
+            if ($request->request->get('note') != $check->getNote()) {
+                $check->setUser($this->getUser());
+                $check->setDate(new \DateTime());
+                $check->setNote($request->request->get('note'));
+            }
+
+            $em->flush();
+
+            return new JsonResponse(json_encode([
+                'checked' => $check->isChecked(),
+                'user' => $check->getUser()->getUsername(),
+                'date' => $check->getDate()->format('d.m.Y H:i'),
+            ]));
+        }
+
+        return new JsonResponse(json_encode([]));
+    }
 }

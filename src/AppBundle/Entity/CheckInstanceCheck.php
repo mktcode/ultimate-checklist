@@ -56,6 +56,13 @@ class CheckInstanceCheck
      */
     private $checked;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="note", type="text", nullable=true)
+     */
+    private $note;
+
 
     /**
      * Get id
@@ -185,5 +192,39 @@ class CheckInstanceCheck
     public function isChecked()
     {
         return $this->checked;
+    }
+
+    /**
+     * Get checked
+     *
+     * @return boolean
+     */
+    public function getChecked()
+    {
+        return $this->checked;
+    }
+
+    /**
+     * Set note
+     *
+     * @param string $note
+     *
+     * @return CheckInstanceCheck
+     */
+    public function setNote($note)
+    {
+        $this->note = $note;
+
+        return $this;
+    }
+
+    /**
+     * Get note
+     *
+     * @return string
+     */
+    public function getNote()
+    {
+        return $this->note;
     }
 }
