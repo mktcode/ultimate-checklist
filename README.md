@@ -21,7 +21,7 @@ Brainstorm
 - [ ] make checks optional
 - [ ] checks with parent/child relation
 - [ ] define decision based checks
-- [ ] attach comments/media input
+- [ ] attach comments/media input (on tasks description and checks)
 - [ ] download as PDF
 - [ ] share
 - [ ] define checks only a specific user can check
