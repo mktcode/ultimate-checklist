@@ -6,7 +6,6 @@ $(function() {
         prefetch: true,
         onBefore: function($anchor, $container) {
             transition = $anchor.data('animation');
-            console.log('before');
         },
         onStart: {
             duration: 500,
