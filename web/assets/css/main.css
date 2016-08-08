@@ -45,6 +45,10 @@ body.login {
 }
 
 @media print {
+    html {
+        font-size: 11px;
+    }
+
     .hidden-print {
         display: none;
     }
