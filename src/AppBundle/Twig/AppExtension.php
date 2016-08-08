@@ -28,6 +28,7 @@ class AppExtension extends \Twig_Extension
             new \Twig_SimpleFilter('isChecked', [$this, 'isCheckedFilter']),
             new \Twig_SimpleFilter('checkedBy', [$this, 'checkedByFilter']),
             new \Twig_SimpleFilter('checkedDate', [$this, 'checkedDateFilter']),
+            new \Twig_SimpleFilter('checkedNote', [$this, 'checkedNoteFilter']),
             new \Twig_SimpleFilter('checkProgress', [$this, 'checkProgressFilter']),
             new \Twig_SimpleFilter('points', [$this, 'pointsFilter']),
         ];
@@ -46,6 +47,11 @@ class AppExtension extends \Twig_Extension
     public function checkedDateFilter(Task $task, CheckInstance $checkInstance)
     {
         return $this->helper->getTaskCheckedDate($task, $checkInstance);
+    }
+
+    public function checkedNoteFilter(Task $task, CheckInstance $checkInstance)
+    {
+        return $this->helper->getTaskCheckedNote($task, $checkInstance);
     }
 
     public function checkProgressFilter(CheckInstance $checkInstance)

@@ -92,6 +92,24 @@ class Helper
     }
 
     /**
+     * Returns the note of a checked task.
+     *
+     * @param Task $task
+     * @param CheckInstance $checkInstance
+     * @return string
+     */
+    public function getTaskCheckedNote(Task $task, CheckInstance $checkInstance)
+    {
+        /** @var CheckInstanceCheck $check */
+        $check = $this->em->getRepository('AppBundle:CheckInstanceCheck')->findOneBy([
+            'task' => $task,
+            'checkInstance' => $checkInstance
+        ]);
+
+        return $check ? $check->getNote() : '';
+    }
+
+    /**
      * Returns the percentage of checked tasks for the given instance.
      *
      * @param CheckInstance $checkInstance
