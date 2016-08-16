@@ -20,7 +20,7 @@ class CheckInstanceNewType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', null, ['attr' => ['class' => 'uk-form-large'], 'label' => 'Titel'])
+            ->add('title', null, ['attr' => ['class' => 'uk-form-large'], 'label' => 'Projekt/Titel'])
             ->add('customer', null, ['label' => 'Kunde'])
             ->add('domain', UrlType::class, ['required' => false])
             ->add('assignedUser', null, ['label' => 'zuständiger Mitarbeiter'])
