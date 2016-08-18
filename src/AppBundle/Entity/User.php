@@ -48,6 +48,7 @@ class User extends BaseUser
 
         $this->checkInstances = new ArrayCollection();
         $this->checkInstanceChecks = new ArrayCollection();
+        $this->assignedCheckInstances = new ArrayCollection();
     }
 
     /**
