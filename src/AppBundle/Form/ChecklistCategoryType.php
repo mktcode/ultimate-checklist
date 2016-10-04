@@ -7,7 +7,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ChecklistType extends AbstractType
+class ChecklistCategoryType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -18,7 +18,6 @@ class ChecklistType extends AbstractType
         $builder
             ->add('name')
             ->add('description', null, ['label' => 'Beschreibung'])
-            ->add('category', null, ['label' => 'Kategorie'])
             ->add('save', SubmitType::class, ['label' => '<i class="uk-icon-save"></i> Speichern'])
         ;
     }
@@ -29,7 +28,7 @@ class ChecklistType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Checklist'
+            'data_class' => 'AppBundle\Entity\ChecklistCategory'
         ));
     }
 }

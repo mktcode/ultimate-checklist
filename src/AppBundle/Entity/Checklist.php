@@ -52,6 +52,13 @@ class Checklist
      */
     private $checkInstances;
 
+    /**
+     * @var ChecklistCategory
+     *
+     * @ORM\ManyToOne(targetEntity="ChecklistCategory", inversedBy="checklists")
+     */
+    private $category;
+
 
     public function __construct()
     {
@@ -188,5 +195,29 @@ class Checklist
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set category
+     *
+     * @param ChecklistCategory $category
+     *
+     * @return Checklist
+     */
+    public function setCategory(ChecklistCategory $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return ChecklistCategory
+     */
+    public function getCategory()
+    {
+        return $this->category;
     }
 }

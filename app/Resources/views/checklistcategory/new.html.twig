@@ -1,0 +1,12 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h1 class="uk-clearfix">
+        Kategorie hinzufügen
+        <a href="{{ path('checklistcategory_index') }}" class="uk-button uk-button-primary uk-float-right">
+            <i class="uk-icon-folder"></i> Liste
+        </a>
+    </h1>
+
+    {{ form(form) }}
+{% endblock %}

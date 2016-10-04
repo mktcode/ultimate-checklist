@@ -32,10 +32,12 @@ class DefaultController extends Controller
     public function checkAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $checklists = $em->getRepository('AppBundle:Checklist')->findAll();
+        $checklistsWithoutCategory = $em->getRepository('AppBundle:Checklist')->findBy(['category' => null]);
+        $categories = $em->getRepository('AppBundle:ChecklistCategory')->findAll();
 
         return $this->render('default/check.html.twig', [
-            'checklists' => $checklists
+            'checklistsWithoutCategory' => $checklistsWithoutCategory,
+            'categories' => $categories
         ]);
     }
 
