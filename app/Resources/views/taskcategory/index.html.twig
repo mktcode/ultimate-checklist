@@ -3,7 +3,10 @@
 {% block content %}
     <h1 class="uk-clearfix">
         Kategorien
-        <a href="{{ path('taskcategory_new') }}" class="uk-button uk-button-success uk-float-right">
+        <a href="{{ path('task_index') }}" class="uk-button uk-button-primary uk-float-right">
+            <i class="uk-icon-check-square-o"></i> Aufgaben
+        </a>
+        <a href="{{ path('taskcategory_new') }}" class="uk-button uk-button-success uk-float-right uk-margin-small-right">
             <i class="uk-icon-plus"></i> Neue Kategorie
         </a>
     </h1>
