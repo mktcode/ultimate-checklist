@@ -1,7 +1,13 @@
 Ultimate Checklist
 ==================
 
-A Symfony project created on May 24, 2016, 6:56 pm.
+![image](https://user-images.githubusercontent.com/6792578/43263487-b461d772-90e3-11e8-8212-42488ac3dcd5.png)
+
+```
+git clone https://github.com/mktcode/ultimate-checklist.git
+cd ultimate-checklist
+composer install
+```
 
 Brainstorm
 ==========
