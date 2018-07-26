@@ -62,7 +62,7 @@
               class="uk-form uk-margin-bottom" id="noteform">
             <div class="uk-form-row">
                 <label for="note">Notiz:</label>
-                <textarea id="note" name="note" class="uk-width-1-1">{{ check.note }}</textarea>
+                <textarea id="note" name="note" class="uk-width-1-1">{% if check %}{{ check.note }}{% endif %}</textarea>
             </div>
         </form>
 
